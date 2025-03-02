@@ -1,0 +1,17 @@
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\bin\Debug\net8.0\GraduationProject_Infrastructure.deps.json
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\bin\Debug\net8.0\GraduationProject_Infrastructure.runtimeconfig.json
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\bin\Debug\net8.0\GraduationProject_Infrastructure.dll
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\bin\Debug\net8.0\GraduationProject_Infrastructure.pdb
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\bin\Debug\net8.0\GraduationProject_Core.dll
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\bin\Debug\net8.0\GraduationProject_Core.pdb
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\obj\Debug\net8.0\GraduationProject_Infrastructure.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\obj\Debug\net8.0\GraduationProject_Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\obj\Debug\net8.0\GraduationProject_Infrastructure.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\obj\Debug\net8.0\GraduationProject_Infrastructure.AssemblyInfo.cs
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\obj\Debug\net8.0\GraduationProject_Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\obj\Debug\net8.0\Graduati.136C64B8.Up2Date
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\obj\Debug\net8.0\GraduationProject_Infrastructure.dll
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\obj\Debug\net8.0\refint\GraduationProject_Infrastructure.dll
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\obj\Debug\net8.0\GraduationProject_Infrastructure.pdb
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\obj\Debug\net8.0\GraduationProject_Infrastructure.genruntimeconfig.cache
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Infrastructure\obj\Debug\net8.0\ref\GraduationProject_Infrastructure.dll

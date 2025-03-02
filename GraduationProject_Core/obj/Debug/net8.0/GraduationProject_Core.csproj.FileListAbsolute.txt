@@ -1,0 +1,12 @@
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\bin\Debug\net8.0\GraduationProject_Core.deps.json
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\bin\Debug\net8.0\GraduationProject_Core.dll
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\bin\Debug\net8.0\GraduationProject_Core.pdb
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\GraduationProject_Core.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\GraduationProject_Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\GraduationProject_Core.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\GraduationProject_Core.AssemblyInfo.cs
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\GraduationProject_Core.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\GraduationProject_Core.dll
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\refint\GraduationProject_Core.dll
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\GraduationProject_Core.pdb
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\ref\GraduationProject_Core.dll
