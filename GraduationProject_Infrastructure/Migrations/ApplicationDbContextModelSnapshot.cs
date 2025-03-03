@@ -24,11 +24,11 @@ namespace GraduationProject_Infrastructure.Migrations
 
             modelBuilder.Entity("GraduationProject_Core.Models.Competition", b =>
                 {
-                    b.Property<int>("CompetitionID")
+                    b.Property<int>("CompetitionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompetitionID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompetitionId"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -48,11 +48,10 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.Property<DateTime?>("Time")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
-                    b.HasKey("CompetitionID");
+                    b.HasKey("CompetitionId");
 
                     b.ToTable("Competition");
                 });
@@ -618,7 +617,7 @@ namespace GraduationProject_Infrastructure.Migrations
             modelBuilder.Entity("GraduationProject_Core.Models.SponsorComptiition", b =>
                 {
                     b.HasOne("GraduationProject_Core.Models.Competition", "Competition")
-                        .WithMany("SponsorComptiition")
+                        .WithMany("SponsorCompetition")
                         .HasForeignKey("CompetitionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -637,7 +636,7 @@ namespace GraduationProject_Infrastructure.Migrations
             modelBuilder.Entity("GraduationProject_Core.Models.TeamCompetition", b =>
                 {
                     b.HasOne("GraduationProject_Core.Models.Competition", "Competition")
-                        .WithMany("TeamsCompetitions")
+                        .WithMany("TeamCompetitions")
                         .HasForeignKey("CompetitionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -753,9 +752,9 @@ namespace GraduationProject_Infrastructure.Migrations
 
             modelBuilder.Entity("GraduationProject_Core.Models.Competition", b =>
                 {
-                    b.Navigation("SponsorComptiition");
+                    b.Navigation("SponsorCompetition");
 
-                    b.Navigation("TeamsCompetitions");
+                    b.Navigation("TeamCompetitions");
 
                     b.Navigation("UniversityCompetitions");
                 });

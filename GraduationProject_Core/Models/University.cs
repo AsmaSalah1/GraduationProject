@@ -21,5 +21,6 @@ namespace GraduationProject_Core.Models
 		public string? Gmail { get; set; }
 		public ICollection<User> Users { get; set; }=new HashSet<User>();
 		public ICollection<UniversityCompetition>? UniversityCompetitions { get; set; }=new HashSet<UniversityCompetition>();
+	   public ICollection<UniversityImages> UniversityImages { get; set; }=new HashSet<UniversityImages>();
 	}
 }

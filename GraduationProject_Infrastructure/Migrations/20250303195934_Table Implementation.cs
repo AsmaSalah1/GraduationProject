@@ -30,10 +30,10 @@ namespace GraduationProject_Infrastructure.Migrations
                 name: "Competition",
                 columns: table => new
                 {
-                    CompetitionID = table.Column<int>(type: "int", nullable: false)
+                    CompetitionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Time = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -41,7 +41,7 @@ namespace GraduationProject_Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Competition", x => x.CompetitionID);
+                    table.PrimaryKey("PK_Competition", x => x.CompetitionId);
                 });
 
             migrationBuilder.CreateTable(
@@ -143,7 +143,7 @@ namespace GraduationProject_Infrastructure.Migrations
                         name: "FK_SponsorComptiition_Competition_CompetitionID",
                         column: x => x.CompetitionID,
                         principalTable: "Competition",
-                        principalColumn: "CompetitionID",
+                        principalColumn: "CompetitionId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SponsorComptiition_Sponsor_SponsorID",
@@ -169,7 +169,7 @@ namespace GraduationProject_Infrastructure.Migrations
                         name: "FK_TeamCompetition_Competition_CompetitionID",
                         column: x => x.CompetitionID,
                         principalTable: "Competition",
-                        principalColumn: "CompetitionID",
+                        principalColumn: "CompetitionId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TeamCompetition_Team_TeamId",
@@ -255,7 +255,7 @@ namespace GraduationProject_Infrastructure.Migrations
                         name: "FK_UniversityCompetition_Competition_CompetitionID",
                         column: x => x.CompetitionID,
                         principalTable: "Competition",
-                        principalColumn: "CompetitionID",
+                        principalColumn: "CompetitionId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UniversityCompetition_University_UniversityId",
@@ -370,7 +370,7 @@ namespace GraduationProject_Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

@@ -10,3 +10,4 @@ C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug
 C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\refint\GraduationProject_Core.dll
 C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\GraduationProject_Core.pdb
 C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\ref\GraduationProject_Core.dll
+C:\Users\user\Desktop\asp\GraduationProject_API\GraduationProject_Core\obj\Debug\net8.0\GraduationProject_Core.sourcelink.json
