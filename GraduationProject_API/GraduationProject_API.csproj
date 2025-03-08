@@ -18,8 +18,4 @@
     <ProjectReference Include="..\GraduationProject_Infrastructure\GraduationProject_Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

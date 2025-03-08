@@ -56,6 +56,28 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.ToTable("Competition");
                 });
 
+            modelBuilder.Entity("GraduationProject_Core.Models.CompetitionImages", b =>
+                {
+                    b.Property<int>("CompetitionImagesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompetitionImagesId"));
+
+                    b.Property<int>("CompetitionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CompetitionImagesId");
+
+                    b.HasIndex("CompetitionId");
+
+                    b.ToTable("CompetitionImages");
+                });
+
             modelBuilder.Entity("GraduationProject_Core.Models.Participant", b =>
                 {
                     b.Property<int>("ParticipantId")
@@ -352,6 +374,28 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.ToTable("UniversityCompetition");
                 });
 
+            modelBuilder.Entity("GraduationProject_Core.Models.UniversityImages", b =>
+                {
+                    b.Property<int>("UniversityImagesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UniversityImagesId"));
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UniversityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UniversityImagesId");
+
+                    b.HasIndex("UniversityId");
+
+                    b.ToTable("UniversityImages");
+                });
+
             modelBuilder.Entity("GraduationProject_Core.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -376,6 +420,9 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
 
                     b.Property<string>("GithubLink")
                         .HasColumnType("nvarchar(max)");
@@ -402,6 +449,9 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PersonalExperienceId")
+                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -570,6 +620,17 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("GraduationProject_Core.Models.CompetitionImages", b =>
+                {
+                    b.HasOne("GraduationProject_Core.Models.Competition", "Competition")
+                        .WithMany("CompetitionImages")
+                        .HasForeignKey("CompetitionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Competition");
+                });
+
             modelBuilder.Entity("GraduationProject_Core.Models.PersonalExperience", b =>
                 {
                     b.HasOne("GraduationProject_Core.Models.User", "User")
@@ -690,6 +751,17 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.Navigation("University");
                 });
 
+            modelBuilder.Entity("GraduationProject_Core.Models.UniversityImages", b =>
+                {
+                    b.HasOne("GraduationProject_Core.Models.University", "University")
+                        .WithMany("UniversityImages")
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
             modelBuilder.Entity("GraduationProject_Core.Models.User", b =>
                 {
                     b.HasOne("GraduationProject_Core.Models.University", "University")
@@ -752,6 +824,8 @@ namespace GraduationProject_Infrastructure.Migrations
 
             modelBuilder.Entity("GraduationProject_Core.Models.Competition", b =>
                 {
+                    b.Navigation("CompetitionImages");
+
                     b.Navigation("SponsorCompetition");
 
                     b.Navigation("TeamCompetitions");
@@ -779,6 +853,8 @@ namespace GraduationProject_Infrastructure.Migrations
             modelBuilder.Entity("GraduationProject_Core.Models.University", b =>
                 {
                     b.Navigation("UniversityCompetitions");
+
+                    b.Navigation("UniversityImages");
 
                     b.Navigation("Users");
                 });

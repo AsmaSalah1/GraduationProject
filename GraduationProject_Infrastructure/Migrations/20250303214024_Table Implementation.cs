@@ -130,6 +130,26 @@ namespace GraduationProject_Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CompetitionImages",
+                columns: table => new
+                {
+                    CompetitionImagesId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompetitionId = table.Column<int>(type: "int", nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompetitionImages", x => x.CompetitionImagesId);
+                    table.ForeignKey(
+                        name: "FK_CompetitionImages_Competition_CompetitionId",
+                        column: x => x.CompetitionId,
+                        principalTable: "Competition",
+                        principalColumn: "CompetitionId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SponsorComptiition",
                 columns: table => new
                 {
@@ -266,6 +286,26 @@ namespace GraduationProject_Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UniversityImages",
+                columns: table => new
+                {
+                    UniversityImagesId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UniversityId = table.Column<int>(type: "int", nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UniversityImages", x => x.UniversityImagesId);
+                    table.ForeignKey(
+                        name: "FK_UniversityImages_University_UniversityId",
+                        column: x => x.UniversityId,
+                        principalTable: "University",
+                        principalColumn: "UniversityId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -370,7 +410,7 @@ namespace GraduationProject_Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -483,6 +523,11 @@ namespace GraduationProject_Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CompetitionImages_CompetitionId",
+                table: "CompetitionImages",
+                column: "CompetitionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PersonalExperience_UserId",
                 table: "PersonalExperience",
                 column: "UserId",
@@ -522,6 +567,11 @@ namespace GraduationProject_Infrastructure.Migrations
                 name: "IX_UniversityCompetition_CompetitionID",
                 table: "UniversityCompetition",
                 column: "CompetitionID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UniversityImages_UniversityId",
+                table: "UniversityImages",
+                column: "UniversityId");
         }
 
         /// <inheritdoc />
@@ -541,6 +591,9 @@ namespace GraduationProject_Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "CompetitionImages");
 
             migrationBuilder.DropTable(
                 name: "PersonalExperience");
@@ -565,6 +618,9 @@ namespace GraduationProject_Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "UniversityCompetition");
+
+            migrationBuilder.DropTable(
+                name: "UniversityImages");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

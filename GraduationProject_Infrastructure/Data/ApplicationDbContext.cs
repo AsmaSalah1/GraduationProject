@@ -23,7 +23,8 @@ namespace GraduationProject_Infrastructure.Data
 			builder.Entity<UniversityCompetition>().HasKey(r => new { r.UniversityId, r.CompetitionID });
 			builder.Entity<SponsorComptiition>().HasKey(r => new { r.SponsorID, r.CompetitionID });
 			builder.Entity<TeamCompetition>().HasKey(r => new { r.TeamId, r.CompetitionID });
-
+			//builder.Entity<User>(u =>
+			//u.Property(i => i.Image).HasDefaultValue("C:\\Users\\user\\Desktop\\Man defult image.png"));
 			//builder.Entity<User>()
 			//     .HasOne(u => u.University).WithMany(u => u.Users).HasForeignKey(u => u.UniversityId)
 			//     .OnDelete(DeleteBehavior.SetNull);
@@ -31,7 +32,7 @@ namespace GraduationProject_Infrastructure.Data
 			builder.Entity<User>().HasOne(u => u.PersonalExperience).WithOne(p => p.User)
 		   .HasForeignKey<PersonalExperience>(p => p.UserId)
 		  .OnDelete(DeleteBehavior.Cascade); // عند حذف المستخدم، يتم حذف تجربته الشخصية أيضًا
-
+          
 		}
 	}
 }

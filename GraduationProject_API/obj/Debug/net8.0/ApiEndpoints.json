@@ -1,0 +1,134 @@
+[
+  {
+    "ContainingType": "GraduationProject_API.Controllers.AuthsController",
+    "Method": "ChangePassword",
+    "RelativePath": "Auths/Change-Password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "GraduationProject_Core.Dtos.Auth.ChangePasswordDtos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.AuthsController",
+    "Method": "ConfirmEmail",
+    "RelativePath": "Auths/confirm-email",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.AuthsController",
+    "Method": "FordotPassword",
+    "RelativePath": "Auths/Forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "forgetPassowrd",
+        "Type": "GraduationProject_Core.Dtos.Auth.ForgetPassowrd",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.AuthsController",
+    "Method": "Login",
+    "RelativePath": "Auths/LogIn",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "logInDTOs",
+        "Type": "GraduationProject_Core.Dtos.Auth.LogInDTOs",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.AuthsController",
+    "Method": "Register",
+    "RelativePath": "Auths/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerDtos",
+        "Type": "GraduationProject_Core.Dtos.Auth.RegisterDtos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.AuthsController",
+    "Method": "ResetPassword",
+    "RelativePath": "Auths/reset-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "GraduationProject_Core.Dtos.Auth.ResitPasswordDtos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.AuthsController",
+    "Method": "ResetPasswordPage",
+    "RelativePath": "Auths/reset-password",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.UsersProfileController",
+    "Method": "GetUserProfile",
+    "RelativePath": "UsersProfile/Profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

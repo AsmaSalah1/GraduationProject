@@ -1,6 +1,8 @@
 
+using GraduationProject_Core.Interfaces;
 using GraduationProject_Core.Models;
 using GraduationProject_Infrastructure.Data;
+using GraduationProject_Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,14 +19,19 @@ namespace GraduationProject_API
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-			builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
-			{
-				options.Password.RequireUppercase = true;
-				options.Password.RequireLowercase = true;
-				options.Password.RequireNonAlphanumeric = false;//ما يحتاج رموز فريدة
-				options.Password.RequireDigit = true;
-				options.Password.RequiredUniqueChars = 0;
-			}).AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
+            {
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;//ما يحتاج رموز فريدة
+                options.Password.RequireDigit = true;
+                options.Password.RequiredUniqueChars = 0;
+                options.SignIn.RequireConfirmedAccount = true;
+
+			}).AddEntityFrameworkStores<ApplicationDbContext>()
+              .AddDefaultTokenProviders();
+            builder.Services.AddScoped<IAuthRepositry, AuthRepositry>();
+            builder.Services.AddScoped<IUserProfileRepositry, UserProfileRepositry>();
 			builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

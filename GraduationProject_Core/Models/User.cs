@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraduationProject_Core.Dtos.Auth;
 
 namespace GraduationProject_Core.Models
 {
@@ -15,8 +16,11 @@ namespace GraduationProject_Core.Models
 
 		[ForeignKey(nameof(University))]
 		public int? UniversityId { get; set; }
-	//	public string? UniversityName { get; set; } بحطها في ال DTOs
+		//	public string? UniversityName { get; set; } بحطها في ال DTOs
+		[ForeignKey(nameof(PersonalExperience))]
+		public int? PersonalExperienceId { get; set; }
 		public string? Image { get; set; }
+		public Gender? Gender { get; set; }
 		public string? GithubLink { get; set; }
 		public string? LinkedInLink { get; set; }
 		public string? Cv { get; set; }
