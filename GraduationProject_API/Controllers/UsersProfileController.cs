@@ -1,4 +1,5 @@
-﻿using GraduationProject_Core.Helper;
+﻿using GraduationProject_Core.Dtos.UserProfile;
+using GraduationProject_Core.Helper;
 using GraduationProject_Core.Interfaces;
 using GraduationProject_Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -10,11 +11,14 @@ namespace GraduationProject_API.Controllers
 	[ApiController]
 	public class UsersProfileController : ControllerBase
 	{
-		private readonly IUserProfileRepositry userProfileRepositry;
+		private readonly IUnitOfWork unitOfWork;
 
-		public UsersProfileController(IUserProfileRepositry userProfileRepositry)
+		//private readonly IUserProfileRepositry userProfileRepositry;
+
+		public UsersProfileController(IUnitOfWork unitOfWork)
 		{
-			this.userProfileRepositry = userProfileRepositry;
+			this.unitOfWork = unitOfWork;
+			//	this.userProfileRepositry = userProfileRepositry;
 		}
 
 		[HttpGet("Profile")]
@@ -34,7 +38,7 @@ namespace GraduationProject_API.Controllers
 				
 			try
 			{
-				var result = await userProfileRepositry.GetUserProfileAsync(userId.Value);
+				var result = await unitOfWork.userProfileRepositry.GetUserProfileAsync(userId.Value);
 				return Ok(result);
 			}
 			catch (KeyNotFoundException ex)
@@ -49,5 +53,26 @@ namespace GraduationProject_API.Controllers
 			
 		}
 
+		[HttpPut("Update-Profile")]
+		public async Task<IActionResult> UpdateProfile([FromForm]UpdateProfileDtos dto)
+		{
+			var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+			//التوكن عباة عن سترينغ
+			if (string.IsNullOrEmpty(token))
+			{
+				return Unauthorized("Token is missing");
+			}
+			var userId = ExtractClaims.ExtractUserId(token);
+			if (!userId.HasValue)
+			{
+				return Unauthorized("Invalid user token");
+			}
+			var result = await unitOfWork.userProfileRepositry.UpdateUserProfileAsync(userId.Value, dto);
+			if (result)
+			{
+			return Ok("User Information Updated Successfully");
+			}
+			return BadRequest(result);
+		}
 	}
 }

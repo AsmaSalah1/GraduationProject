@@ -214,11 +214,199 @@
         }
       }
     },
+    "/QAA/AddQAA": {
+      "post": {
+        "tags": [
+          "QAA"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQAADto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQAADto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQAADto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/QAA/UpdateQAA/{qaaId}": {
+      "put": {
+        "tags": [
+          "QAA"
+        ],
+        "parameters": [
+          {
+            "name": "qaaId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQAADto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQAADto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQAADto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/QAA/DeleteQAA/{qaaId}": {
+      "delete": {
+        "tags": [
+          "QAA"
+        ],
+        "parameters": [
+          {
+            "name": "qaaId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/QAA/GetAllQAA": {
+      "get": {
+        "tags": [
+          "QAA"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/UsersProfile/Profile": {
       "get": {
         "tags": [
           "UsersProfile"
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/UsersProfile/Update-Profile": {
+      "put": {
+        "tags": [
+          "UsersProfile"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "UserName": {
+                    "type": "string"
+                  },
+                  "Email": {
+                    "type": "string"
+                  },
+                  "Image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "Gender": {
+                    "$ref": "#/components/schemas/Gender"
+                  },
+                  "GithubLink": {
+                    "type": "string"
+                  },
+                  "LinkedInLink": {
+                    "type": "string"
+                  },
+                  "Cv": {
+                    "type": "string"
+                  },
+                  "UniversityName": {
+                    "type": "string"
+                  },
+                  "PersonalExperienceContent": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "UserName": {
+                  "style": "form"
+                },
+                "Email": {
+                  "style": "form"
+                },
+                "Image": {
+                  "style": "form"
+                },
+                "Gender": {
+                  "style": "form"
+                },
+                "GithubLink": {
+                  "style": "form"
+                },
+                "LinkedInLink": {
+                  "style": "form"
+                },
+                "Cv": {
+                  "style": "form"
+                },
+                "UniversityName": {
+                  "style": "form"
+                },
+                "PersonalExperienceContent": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -241,6 +429,24 @@
             "type": "string",
             "format": "password",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateQAADto": {
+        "required": [
+          "answer",
+          "question"
+        ],
+        "type": "object",
+        "properties": {
+          "question": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "answer": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -330,6 +536,20 @@
             "nullable": true
           },
           "token": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateQAADto": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "nullable": true
+          },
+          "answer": {
             "type": "string",
             "nullable": true
           }

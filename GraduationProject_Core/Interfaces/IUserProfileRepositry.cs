@@ -11,6 +11,5 @@ namespace GraduationProject_Core.Interfaces
 	{
 		Task<ViewProfileDtos> GetUserProfileAsync(int id);
 		Task<bool> UpdateUserProfileAsync(int id, UpdateProfileDtos updateDto);
-
 	}
 }

@@ -30,8 +30,9 @@ namespace GraduationProject_API
 
 			}).AddEntityFrameworkStores<ApplicationDbContext>()
               .AddDefaultTokenProviders();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAuthRepositry, AuthRepositry>();
-            builder.Services.AddScoped<IUserProfileRepositry, UserProfileRepositry>();
+            //builder.Services.AddScoped<IUserProfileRepositry, UserProfileRepositry>();
 			builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -44,7 +45,7 @@ namespace GraduationProject_API
                         builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
                     });
             });
-            var app = builder.Build();
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -52,16 +53,18 @@ namespace GraduationProject_API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-            app.UseHttpsRedirection();
+            //عشان الصور
+			app.UseStaticFiles();
+			app.UseHttpsRedirection();
             app.UseCors("Allow");
 
             app.UseAuthorization();
 
 
             app.MapControllers();
-
-            app.Run();
+			//عشان ال global exeption handler
+			app.UseExceptionHandler(opt => { });
+			app.Run();
         }
     }
 }

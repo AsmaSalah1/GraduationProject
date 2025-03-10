@@ -1,12 +1,434 @@
 {
   "Version": 1,
-  "Hash": "JJGYr+0UGjCgcpkkk8gg+PQyiReo873KJzC+1bKDXeY=",
+  "Hash": "q8eVSHaGbYNvwuyQWAJtDUzSBNWOBIUMtTz3Z+ka75o=",
   "Source": "GraduationProject_API",
   "BasePath": "_content/GraduationProject_API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "GraduationProject_API\\wwwroot",
+      "Source": "GraduationProject_API",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\",
+      "BasePath": "_content/GraduationProject_API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg",
+      "SourceId": "GraduationProject_API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\",
+      "BasePath": "_content/GraduationProject_API",
+      "RelativePath": "Images/5d5e8576-7f5e-4aa4-9970-a802f88b6348a#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9ck04yzsbh",
+      "Integrity": "+eJtxImSNeYB1eOcYeyEZGC6eatLfhhWaflXT+GDHg4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg",
+      "SourceId": "GraduationProject_API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\",
+      "BasePath": "_content/GraduationProject_API",
+      "RelativePath": "Images/987320ca-34c4-4250-84e4-c10e91dc99f4a#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9ck04yzsbh",
+      "Integrity": "+eJtxImSNeYB1eOcYeyEZGC6eatLfhhWaflXT+GDHg4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\Man defult image.png",
+      "SourceId": "GraduationProject_API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\",
+      "BasePath": "_content/GraduationProject_API",
+      "RelativePath": "Images/Man defult image#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "szd08yd6uj",
+      "Integrity": "KJm1SYikZ3C75x6mujkhVL5xLcFCS81ajnQd0JCHdBQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Man defult image.png"
+    },
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\Women defult image.png",
+      "SourceId": "GraduationProject_API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\",
+      "BasePath": "_content/GraduationProject_API",
+      "RelativePath": "Images/Women defult image#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4qv9naescz",
+      "Integrity": "3Meoa71kOwBgZ5zVPvUEQ78P7vKJgeY2JJKxed9Eh2A=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Women defult image.png"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "Images/5d5e8576-7f5e-4aa4-9970-a802f88b6348a.9ck04yzsbh.jpeg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "170771"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+eJtxImSNeYB1eOcYeyEZGC6eatLfhhWaflXT+GDHg4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Mar 2025 15:21:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9ck04yzsbh"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-+eJtxImSNeYB1eOcYeyEZGC6eatLfhhWaflXT+GDHg4="
+        }
+      ]
+    },
+    {
+      "Route": "Images/5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "170771"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+eJtxImSNeYB1eOcYeyEZGC6eatLfhhWaflXT+GDHg4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Mar 2025 15:21:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-+eJtxImSNeYB1eOcYeyEZGC6eatLfhhWaflXT+GDHg4="
+        }
+      ]
+    },
+    {
+      "Route": "Images/987320ca-34c4-4250-84e4-c10e91dc99f4a.9ck04yzsbh.jpeg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "170771"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+eJtxImSNeYB1eOcYeyEZGC6eatLfhhWaflXT+GDHg4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Mar 2025 20:59:52 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9ck04yzsbh"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-+eJtxImSNeYB1eOcYeyEZGC6eatLfhhWaflXT+GDHg4="
+        }
+      ]
+    },
+    {
+      "Route": "Images/987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "170771"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+eJtxImSNeYB1eOcYeyEZGC6eatLfhhWaflXT+GDHg4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Mar 2025 20:59:52 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-+eJtxImSNeYB1eOcYeyEZGC6eatLfhhWaflXT+GDHg4="
+        }
+      ]
+    },
+    {
+      "Route": "Images/Man defult image.png",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\Man defult image.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "42041"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KJm1SYikZ3C75x6mujkhVL5xLcFCS81ajnQd0JCHdBQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 06 Mar 2025 21:31:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KJm1SYikZ3C75x6mujkhVL5xLcFCS81ajnQd0JCHdBQ="
+        }
+      ]
+    },
+    {
+      "Route": "Images/Man defult image.szd08yd6uj.png",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\Man defult image.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "42041"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KJm1SYikZ3C75x6mujkhVL5xLcFCS81ajnQd0JCHdBQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 06 Mar 2025 21:31:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "szd08yd6uj"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/Man defult image.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KJm1SYikZ3C75x6mujkhVL5xLcFCS81ajnQd0JCHdBQ="
+        }
+      ]
+    },
+    {
+      "Route": "Images/Women defult image.4qv9naescz.png",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\Women defult image.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20412"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3Meoa71kOwBgZ5zVPvUEQ78P7vKJgeY2JJKxed9Eh2A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 06 Mar 2025 21:32:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4qv9naescz"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/Women defult image.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-3Meoa71kOwBgZ5zVPvUEQ78P7vKJgeY2JJKxed9Eh2A="
+        }
+      ]
+    },
+    {
+      "Route": "Images/Women defult image.png",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\Women defult image.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20412"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3Meoa71kOwBgZ5zVPvUEQ78P7vKJgeY2JJKxed9Eh2A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 06 Mar 2025 21:32:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-3Meoa71kOwBgZ5zVPvUEQ78P7vKJgeY2JJKxed9Eh2A="
+        }
+      ]
+    }
+  ]
 }

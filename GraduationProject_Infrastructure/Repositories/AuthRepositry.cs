@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
@@ -40,7 +41,10 @@ namespace GraduationProject_Infrastructure.Repositories
 			var result = await userManager.CreateAsync(user,password);
 			if (result.Succeeded) {
 				var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
-				//Console.WriteLine("Generated Token: " + token); // اختبار وإظهار التوكن في الـ console أو الـ logs
+			//	var token = CreateToken(user);
+				//var encodedToken = WebUtility.UrlEncode(token);
+				//var encodedEmail = WebUtility.UrlEncode(user.Email);
+				Console.WriteLine("Generated Token: " + token); // اختبار وإظهار التوكن في الـ console أو الـ logs
 
 				var ConfirmEmailURL = $"https://localhost:7024/Auths/confirm-email?token={token}&email={user.Email}";
 

@@ -122,6 +122,69 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "GraduationProject_API.Controllers.QAAController",
+    "Method": "AddQAA",
+    "RelativePath": "QAA/AddQAA",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "GraduationProject_Core.Dtos.QAA.CreateQAADto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.QAAController",
+    "Method": "DeleteQAA",
+    "RelativePath": "QAA/DeleteQAA/{qaaId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "qaaId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.QAAController",
+    "Method": "GetAllQAA",
+    "RelativePath": "QAA/GetAllQAA",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.QAAController",
+    "Method": "UpdateQAA",
+    "RelativePath": "QAA/UpdateQAA/{qaaId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "qaaId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "GraduationProject_Core.Dtos.QAA.UpdateQAADto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "GraduationProject_API.Controllers.UsersProfileController",
     "Method": "GetUserProfile",
     "RelativePath": "UsersProfile/Profile",
@@ -129,6 +192,62 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.UsersProfileController",
+    "Method": "UpdateProfile",
+    "RelativePath": "UsersProfile/Update-Profile",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Image",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "Gender",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "GithubLink",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "LinkedInLink",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Cv",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "UniversityName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "PersonalExperienceContent",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   }
 ]

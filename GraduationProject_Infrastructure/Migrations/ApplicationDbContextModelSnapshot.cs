@@ -53,7 +53,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasKey("CompetitionId");
 
-                    b.ToTable("Competition");
+                    b.ToTable("Competitions");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.CompetitionImages", b =>
@@ -92,7 +92,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasKey("ParticipantId");
 
-                    b.ToTable("Participant");
+                    b.ToTable("Participants");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.PersonalExperience", b =>
@@ -124,7 +124,7 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("PersonalExperience");
+                    b.ToTable("PersonalExperiences");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.Post", b =>
@@ -157,7 +157,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasIndex("Userld");
 
-                    b.ToTable("Post");
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.QAA", b =>
@@ -183,7 +183,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("QAA");
+                    b.ToTable("QAAs");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.Rule", b =>
@@ -209,7 +209,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Rule");
+                    b.ToTable("Rules");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.Sponsor", b =>
@@ -235,7 +235,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasKey("SponsorID");
 
-                    b.ToTable("Sponsor");
+                    b.ToTable("Sponsors");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.SponsorComptiition", b =>
@@ -250,7 +250,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasIndex("CompetitionID");
 
-                    b.ToTable("SponsorComptiition");
+                    b.ToTable("SponsorComptiitions");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.Team", b =>
@@ -274,7 +274,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasKey("TeamId");
 
-                    b.ToTable("Team");
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.TeamCompetition", b =>
@@ -295,7 +295,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasIndex("CompetitionID");
 
-                    b.ToTable("TeamCompetition");
+                    b.ToTable("TeamsCompetitions");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.TeamParticipant", b =>
@@ -313,7 +313,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("TeamParticipant");
+                    b.ToTable("TeamsParticipants");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.University", b =>
@@ -353,7 +353,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasKey("UniversityId");
 
-                    b.ToTable("University");
+                    b.ToTable("Universities");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.UniversityCompetition", b =>
@@ -371,7 +371,7 @@ namespace GraduationProject_Infrastructure.Migrations
 
                     b.HasIndex("CompetitionID");
 
-                    b.ToTable("UniversityCompetition");
+                    b.ToTable("UniversityCompetitions");
                 });
 
             modelBuilder.Entity("GraduationProject_Core.Models.UniversityImages", b =>

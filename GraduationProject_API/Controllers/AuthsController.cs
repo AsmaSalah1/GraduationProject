@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using System.Net;
 
 namespace GraduationProject_API.Controllers
 {
@@ -38,8 +39,9 @@ namespace GraduationProject_API.Controllers
 			if (string.IsNullOrEmpty(user.Image)) // فقط إذا لم يوفر المستخدم صورة
 			{
 				user.Image = user.Gender == Gender.Male
-					? "C:\\Users\\user\\Desktop\\Man defult image.png"
-					: "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\Woman defult image.png";
+					? $"{Directory.GetCurrentDirectory()}\\wwwroot\\Images\\Man defult image.png"
+					: $"{Directory.GetCurrentDirectory()}\\wwwroot\\Images\\Women defult image.png";
+			
 			}
 			var result = await authRepositry.RegisterAsync(user,registerDtos.Password);
 			if(result == "User registered successfully! Please check your email to confirm your account.")
@@ -54,7 +56,10 @@ namespace GraduationProject_API.Controllers
 			if (!ModelState.IsValid) {
 				return BadRequest(ModelState);
 			}
-			var result =await authRepositry.ConfirmEmail(email,token);
+		    //var decodedEmail=WebUtility.UrlDecode(email);
+			//var decodedToken = WebUtility.UrlDecode(token);
+
+			var result =await authRepositry.ConfirmEmail(email, token);
 			if(result == "Email confirmed successfully!")
 			{
 				return Ok(result);

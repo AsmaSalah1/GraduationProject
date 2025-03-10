@@ -34,5 +34,24 @@ namespace GraduationProject_Infrastructure.Data
 		  .OnDelete(DeleteBehavior.Cascade); // عند حذف المستخدم، يتم حذف تجربته الشخصية أيضًا
           
 		}
+		public DbSet<User> User { get; set; }
+		public DbSet<Team> Teams { get; set; }
+		public DbSet<Competition> Competitions { get; set; }
+		public DbSet<Participant> Participants { get; set; }
+		//public DbSet<Role> Roles { get; set; }
+		public DbSet<Rule> Rules { get; set; }
+		public DbSet<Sponsor> Sponsors { get; set; }
+		public DbSet<University> Universities { get; set; }
+		public DbSet<UniversityCompetition> UniversityCompetitions { get; set; }
+		public DbSet<QAA> QAAs { get; set; }
+		public DbSet<Post> Posts { get; set; }
+		public DbSet<PersonalExperience> PersonalExperiences { get; set; }
+		public DbSet<TeamCompetition> TeamsCompetitions { get; set; }
+		public DbSet<TeamParticipant> TeamsParticipants { get; set; }
+		public DbSet<SponsorComptiition> SponsorComptiitions { get; set; }
+		public DbSet<CompetitionImages> CompetitionImages { get; set; }
+		public DbSet<UniversityImages> UniversityImages { get; set; }
+
+
 	}
 }
