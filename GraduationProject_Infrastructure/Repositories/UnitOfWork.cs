@@ -24,6 +24,8 @@ namespace GraduationProject_Infrastructure.Repositories
 
 		public IQAARepositry iQAARepositry { get; }
 
+		public IRuleRepositry iRuleRepositry { get; }
+
 		public async Task<int> SaveAsync()
 	=> await dbContext.SaveChangesAsync();
 
@@ -50,6 +52,7 @@ namespace GraduationProject_Infrastructure.Repositories
 			authRepositry = new AuthRepositry(userManager, configuration, signInManager,dbContext);
 		    userProfileRepositry=new UserProfileRepositry(userManager,dbContext);
 			iQAARepositry=new QAARepositry(dbContext);
+			iRuleRepositry=new RuleRepositry(dbContext);
 		}
 	}
 }

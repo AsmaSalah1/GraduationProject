@@ -185,6 +185,69 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "GraduationProject_API.Controllers.RuleController",
+    "Method": "AddRule",
+    "RelativePath": "Rule/Add-Rule",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "GraduationProject_Core.Dtos.Rule.AddRuleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.RuleController",
+    "Method": "DeleteRule",
+    "RelativePath": "Rule/Delete-Rule/{ruleId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ruleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.RuleController",
+    "Method": "GetAllRules",
+    "RelativePath": "Rule/Get-All-Rules",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.RuleController",
+    "Method": "UpdateRule",
+    "RelativePath": "Rule/Update-Rule/{ruleId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ruleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "GraduationProject_Core.Dtos.Rule.EditRuleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "GraduationProject_API.Controllers.UsersProfileController",
     "Method": "GetUserProfile",
     "RelativePath": "UsersProfile/Profile",

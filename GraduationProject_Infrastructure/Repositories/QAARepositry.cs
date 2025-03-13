@@ -69,7 +69,7 @@ namespace GraduationProject_Infrastructure.Repositories
 
 		public async Task<IEnumerable<CreateQAADto>> GetAll_QAA_Async()
 		{
-			var result = await dbContext.QAAs.ToListAsync();
+			var result = await dbContext.QAAs.AsNoTracking().ToListAsync();
 			var Dto =result.Select(x => new CreateQAADto()
 			{
 				Answer = x.Answer,
