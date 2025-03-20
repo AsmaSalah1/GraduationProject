@@ -1,24 +1,20 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg",
+      "Id": "C:\\Users\\ahmed\\Source\\Repos\\GraduationProject\\GraduationProject_API\\wwwroot\\Images\\5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg",
       "PackagePath": "staticwebassets\\Images\\5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg"
     },
     {
-      "Id": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg",
+      "Id": "C:\\Users\\ahmed\\Source\\Repos\\GraduationProject\\GraduationProject_API\\wwwroot\\Images\\987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg",
       "PackagePath": "staticwebassets\\Images\\987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg"
     },
     {
-      "Id": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\Man defult image.png",
+      "Id": "C:\\Users\\ahmed\\Source\\Repos\\GraduationProject\\GraduationProject_API\\wwwroot\\Images\\Man defult image.png",
       "PackagePath": "staticwebassets\\Images\\Man defult image.png"
     },
     {
-      "Id": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\Women defult image.png",
+      "Id": "C:\\Users\\ahmed\\Source\\Repos\\GraduationProject\\GraduationProject_API\\wwwroot\\Images\\Women defult image.png",
       "PackagePath": "staticwebassets\\Images\\Women defult image.png"
-    },
-    {
-      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.GraduationProject_API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
-      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.GraduationProject_API.Microsoft.AspNetCore.StaticWebAssets.props",
