@@ -1,4 +1,5 @@
-﻿using GraduationProject_Core.Dtos.UserProfile;
+﻿using GraduationProject_Core.Dtos.PersonalExperiance;
+using GraduationProject_Core.Dtos.UserProfile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace GraduationProject_Core.Interfaces
 	{
 		Task<ViewProfileDtos> GetUserProfileAsync(int id);
 		Task<bool> UpdateUserProfileAsync(int id, UpdateProfileDtos updateDto);
+
 	}
 }

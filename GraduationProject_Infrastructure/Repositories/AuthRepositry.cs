@@ -40,6 +40,7 @@ namespace GraduationProject_Infrastructure.Repositories
 		{
 			var result = await userManager.CreateAsync(user,password);
 			if (result.Succeeded) {
+				await userManager.AddToRoleAsync(user, "User");
 				var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
 			//	var token = CreateToken(user);
 				//var encodedToken = WebUtility.UrlEncode(token);

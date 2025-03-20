@@ -14,7 +14,7 @@ namespace GraduationProject_Core.Models
 		public int PostId { get; set; }
 
 		[ForeignKey(nameof(User))]
-		public int Userld { get; set; }
+		public int UserId { get; set; }
 
 		public string Description { get; set; }
 		public string Title { get; set; }
@@ -24,5 +24,6 @@ namespace GraduationProject_Core.Models
 
 		// علاقة مع جدول المستخدم (User) - المنشور كتبه مستخدم واحد
 		public User User { get; set; }
+		public ICollection<Comment> Comments { get; set; }=new List<Comment>();	
 	}
 }

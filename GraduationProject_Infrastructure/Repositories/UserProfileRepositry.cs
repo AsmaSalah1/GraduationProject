@@ -1,4 +1,5 @@
-﻿using GraduationProject_Core.Dtos.UserProfile;
+﻿using GraduationProject_Core.Dtos.PersonalExperiance;
+using GraduationProject_Core.Dtos.UserProfile;
 using GraduationProject_Core.Helper;
 using GraduationProject_Core.Interfaces;
 using GraduationProject_Core.Models;
@@ -46,7 +47,6 @@ namespace GraduationProject_Infrastructure.Repositories
 				PersonalExperienceContent = user.PersonalExperience?.Content // جلب وصف التجربة الشخصية
 			};
 		}
-
 		public async Task<bool> UpdateUserProfileAsync(int id, UpdateProfileDtos dto)
 		{
 			var user =await dbContext.Users

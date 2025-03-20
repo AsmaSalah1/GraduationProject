@@ -18,6 +18,48 @@ namespace GraduationProject_Infrastructure.Data
 		}
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
+			
+
+			builder.Entity<IdentityRole<int>>().HasData(
+	           new IdentityRole<int> { Id = 1, Name = "Admin", NormalizedName = "ADMIN" },
+	           new IdentityRole<int> { Id = 2, Name = "SuperAdmin", NormalizedName = "SUPERADMIN" },
+	           new IdentityRole<int> { Id = 3, Name = "User", NormalizedName = "USER" }
+             );
+
+			//var hasher = new PasswordHasher<User>();
+   //         var adminUser = new User
+   //         {
+   //             UserName = "admin@comp.com",
+   //             NormalizedUserName = "ADMIN@COMP.COM",
+   //             Email = "admin@comp.com",
+   //             NormalizedEmail = "ADMIN@COMP.COM",
+   //             EmailConfirmed = true,
+   //         };
+   //         adminUser.PasswordHash = hasher.HashPassword(adminUser, "Admin!!123");
+   //         var superAdmin = new User
+   //         {
+   //             UserName = "superAdmin@comp.com",
+   //             NormalizedUserName = "SUPERADMIN@COMP.COM",
+   //             Email = "superAdmin@comp.com",
+   //             NormalizedEmail = "SUPERADMIN@COMP.COM",
+   //             EmailConfirmed = true,
+   //         };
+   //         superAdmin.PasswordHash = hasher.HashPassword(adminUser, "SuperAdmin@1212");
+   //         var user = new User
+   //         {
+   //             UserName = "user@comp.com",
+   //             NormalizedUserName = "User@COMP.COM",
+   //             Email = "user@comp.com",
+   //             NormalizedEmail = "USER@COMP.COM",
+   //             EmailConfirmed = true,
+   //         };
+   //         user.PasswordHash = hasher.HashPassword(adminUser, "User@1212");
+   //         builder.Entity<User>().HasData(user, superAdmin, adminUser);
+   //         builder.Entity<IdentityUserRole<string>>().HasData(
+   //             new IdentityUserRole<int> { RoleId = 1, UserId = adminUser.Id },
+   //             new IdentityUserRole<int> { RoleId = 2, UserId = user.Id },
+   //             new IdentityUserRole<int> { RoleId = 3, UserId = superAdmin.Id }
+   //             );
 			base.OnModelCreating(builder);
 			builder.Entity<TeamParticipant>().HasKey(x => new { x.TeamId, x.ParticipantId });
 			builder.Entity<UniversityCompetition>().HasKey(r => new { r.UniversityId, r.CompetitionID });
@@ -52,6 +94,6 @@ namespace GraduationProject_Infrastructure.Data
 		public DbSet<CompetitionImages> CompetitionImages { get; set; }
 		public DbSet<UniversityImages> UniversityImages { get; set; }
 
-
+		public DbSet<Comment> Comments { get; set; }
 	}
 }

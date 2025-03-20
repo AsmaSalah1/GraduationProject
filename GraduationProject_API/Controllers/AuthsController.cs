@@ -3,6 +3,7 @@ using GraduationProject_Core.Helper;
 using GraduationProject_Core.Interfaces;
 using GraduationProject_Core.Models;
 using GraduationProject_Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -50,23 +51,47 @@ namespace GraduationProject_API.Controllers
 			}
 			return BadRequest(result);
 		}
-		[HttpGet("confirm-email")]
-		public async Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email)
-		{
-			if (!ModelState.IsValid) {
-				return BadRequest(ModelState);
-			}
-		    //var decodedEmail=WebUtility.UrlDecode(email);
-			//var decodedToken = WebUtility.UrlDecode(token);
+		//[HttpGet("confirm-email")]
+		//public async Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email)
+		//{
+		//	if (!ModelState.IsValid) {
+		//		return BadRequest(ModelState);
+		//	}
+		//    //var decodedEmail=WebUtility.UrlDecode(email);
+		//	//var decodedToken = WebUtility.UrlDecode(token);
 
-			var result =await authRepositry.ConfirmEmail(email, token);
-			if(result == "Email confirmed successfully!")
+		//	var result =await authRepositry.ConfirmEmail(email, token);
+		//	if(result == "Email confirmed successfully!")
+		//	{
+		//		return Ok(result);
+		//	}
+		//	return BadRequest(result);
+		//}
+
+		[HttpGet("confirm-email")]
+		public async Task<IActionResult> ConfirmEmail([FromQuery] string email)
+		{
+			if (string.IsNullOrEmpty(email))
 			{
-				return Ok(result);
+				return BadRequest("Email is required.");
 			}
-			return BadRequest(result);
+
+			var authHeader = Request.Headers["Authorization"].ToString();
+
+			if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
+			{
+				return Unauthorized("Missing or invalid Authorization header.");
+			}
+
+			var token = authHeader.Replace("Bearer ", "");
+
+			var result = await authRepositry.ConfirmEmail(email, token);
+
+			if (result == "Email confirmed successfully!")
+				return Ok(result);
+
+			return BadRequest("Invalid token or email confirmation failed.");
 		}
-		
 		[HttpPost("LogIn")]
 		//localhost/api/AuthController/LogIn
 		public async Task<IActionResult> Login([FromBody] LogInDTOs logInDTOs)
@@ -131,7 +156,7 @@ namespace GraduationProject_API.Controllers
 			return Redirect($"https://yourfrontend.com/reset-password?token={token}&email={email}");
 		}
 
-		
+		[Authorize]
 		[HttpPost("Change-Password")]
 		public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordDtos dto)
 		{

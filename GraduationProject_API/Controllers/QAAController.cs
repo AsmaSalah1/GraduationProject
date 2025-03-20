@@ -1,6 +1,7 @@
 ﻿using GraduationProject_Core.Dtos.QAA;
 using GraduationProject_Core.Helper;
 using GraduationProject_Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace GraduationProject_API.Controllers
 		{
 			this.unitOfWork = unitOfWork;
 		}
+		[Authorize(Roles = "Admin")]
 		[HttpPost("AddQAA")]
 		public async Task<IActionResult> AddQAA(CreateQAADto dto)
 		{
@@ -40,6 +42,8 @@ namespace GraduationProject_API.Controllers
 			}
 			return BadRequest("There is an error");
 		}
+		
+		[Authorize(Roles ="Admin")]
 		[HttpPut("UpdateQAA/{qaaId}")]
 		public async Task<IActionResult> UpdateQAA(int qaaId, UpdateQAADto dto)
 		{
@@ -69,6 +73,7 @@ namespace GraduationProject_API.Controllers
 			return BadRequest("Error updating the QAA");
 		}
 	
+		[Authorize(Roles ="Admin")]
 		[HttpDelete("DeleteQAA/{qaaId}")]
 		public async Task<IActionResult> DeleteQAA(int qaaId)
 		{
@@ -93,6 +98,7 @@ namespace GraduationProject_API.Controllers
 
 			return NotFound("Question and Answer not found or unauthorized");
 		}
+		
 		[HttpGet("GetAllQAA")]
 		public async Task<IActionResult> GetAllQAA()
 		{

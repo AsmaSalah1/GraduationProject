@@ -17,8 +17,8 @@ namespace GraduationProject_Core.Helper
 			{
 				var client = new SmtpClient("smtp.gmail.com", 587);
 				client.EnableSsl = true;
-				client.Credentials = new NetworkCredential("asma.esam.20122@gmail.com", "xqln ihia ymkh plur");
-				client.Send("asma.esam.20122@gmail.com", email.Recivers, email.Subject, email.Body);
+				client.Credentials = new NetworkCredential("mustafaalrifaya3@gmail.com", "liyi eacp ozyb ryjx");
+				client.Send("mustafaalrifaya3@gmail.com", email.Recivers, email.Subject, email.Body);
 			}
 			catch (Exception ex)
 			{

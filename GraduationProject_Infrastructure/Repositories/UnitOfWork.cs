@@ -26,6 +26,16 @@ namespace GraduationProject_Infrastructure.Repositories
 
 		public IRuleRepositry iRuleRepositry { get; }
 
+		public IPersonalExperianceRepositry personalExperianceRepositry { get; }
+
+		public ITeamRepository teamRepository { get; }
+
+		public IParticipantRepository iparticipantRepository { get; }
+
+		public IPostRepositry iPostRepositry { get; }
+
+		public ICommentRepositry iCommentRepositry { get; }
+
 		public async Task<int> SaveAsync()
 	=> await dbContext.SaveChangesAsync();
 
@@ -53,6 +63,11 @@ namespace GraduationProject_Infrastructure.Repositories
 		    userProfileRepositry=new UserProfileRepositry(userManager,dbContext);
 			iQAARepositry=new QAARepositry(dbContext);
 			iRuleRepositry=new RuleRepositry(dbContext);
+			teamRepository = new TeamRepositry(dbContext);
+			personalExperianceRepositry = new PersonalExperianceRepositry(dbContext);
+			iparticipantRepository =new ParticipantRepository(dbContext);
+			iPostRepositry =new PostRepositry(dbContext);
+			iCommentRepositry = new CommentRepositry(dbContext);
 		}
 	}
 }

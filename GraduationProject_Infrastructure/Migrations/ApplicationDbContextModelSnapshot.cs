@@ -22,6 +22,36 @@ namespace GraduationProject_Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("GraduationProject_Core.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("GraduationProject_Core.Models.Competition", b =>
                 {
                     b.Property<int>("CompetitionId")
@@ -107,6 +137,9 @@ namespace GraduationProject_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("bit");
 
@@ -150,12 +183,12 @@ namespace GraduationProject_Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Userld")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("PostId");
 
-                    b.HasIndex("Userld");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
@@ -515,6 +548,26 @@ namespace GraduationProject_Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "SuperAdmin",
+                            NormalizedName = "SUPERADMIN"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -620,6 +673,25 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("GraduationProject_Core.Models.Comment", b =>
+                {
+                    b.HasOne("GraduationProject_Core.Models.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GraduationProject_Core.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("GraduationProject_Core.Models.CompetitionImages", b =>
                 {
                     b.HasOne("GraduationProject_Core.Models.Competition", "Competition")
@@ -646,7 +718,7 @@ namespace GraduationProject_Infrastructure.Migrations
                 {
                     b.HasOne("GraduationProject_Core.Models.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("Userld")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -838,6 +910,11 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.Navigation("TeamsParticipant");
                 });
 
+            modelBuilder.Entity("GraduationProject_Core.Models.Post", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("GraduationProject_Core.Models.Sponsor", b =>
                 {
                     b.Navigation("SponsorComptiition");
@@ -861,6 +938,8 @@ namespace GraduationProject_Infrastructure.Migrations
 
             modelBuilder.Entity("GraduationProject_Core.Models.User", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("PersonalExperience");
 
                     b.Navigation("Posts");

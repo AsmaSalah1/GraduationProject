@@ -24,11 +24,6 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "token",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
         "Name": "email",
         "Type": "System.String",
         "IsRequired": false
@@ -116,6 +111,238 @@
       {
         "Name": "email",
         "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.CommentsController",
+    "Method": "AddComment",
+    "RelativePath": "Comments/Add-Comment/{postId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "GraduationProject_Core.Dtos.Comment.AddCommentDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.CommentsController",
+    "Method": "DeleteQAA",
+    "RelativePath": "Comments/DeleteQAA/{commentId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.CommentsController",
+    "Method": "GetComments",
+    "RelativePath": "Comments/Get-comments/{postId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.ParticipantsController",
+    "Method": "AddParticipantToTeam",
+    "RelativePath": "Participants/Add-Participant-To-Team",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "GraduationProject_Core.Dtos.Participant.AddParticipantOnly",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.ParticipantsController",
+    "Method": "RemoveParticipantFromTeam",
+    "RelativePath": "Participants/Remove-Participant-From-Team",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "participantId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.PersonalExperiencesController",
+    "Method": "CreatePersonalExperience",
+    "RelativePath": "PersonalExperiences/Create-your-Personal-Experience",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "GraduationProject_Core.Dtos.PersonalExperiance.AddPersonalExperianceDtos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.PersonalExperiencesController",
+    "Method": "DeletePersonalExperience",
+    "RelativePath": "PersonalExperiences/Delete-Experience/{personalExperienceId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "personalExperienceId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.PersonalExperiencesController",
+    "Method": "personalExperiance",
+    "RelativePath": "PersonalExperiences/Get-All-Personal-Experiences",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "PageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.PersonalExperiencesController",
+    "Method": "UpdatePersonalExperiance",
+    "RelativePath": "PersonalExperiences/Update-your-Personal-Experience/{personalExperienceId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "personalExperienceId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "GraduationProject_Core.Dtos.PersonalExperiance.UpdatePersonalExperianceDtos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.PostsController",
+    "Method": "CreatePost",
+    "RelativePath": "Posts/Create-post",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Title",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Description",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Image",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.PostsController",
+    "Method": "Delete",
+    "RelativePath": "Posts/Delete-Post/{postId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.PostsController",
+    "Method": "Get",
+    "RelativePath": "Posts/Get-Posts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageIndex",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],
@@ -242,6 +469,101 @@
       {
         "Name": "dto",
         "Type": "GraduationProject_Core.Dtos.Rule.EditRuleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.TeamsController",
+    "Method": "AddTeam",
+    "RelativePath": "Teams/Add-Team",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "GraduationProject_Core.Dtos.Team.CreateTeamDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.TeamsController",
+    "Method": "DeleteTeamById",
+    "RelativePath": "Teams/Delete-Team/{teamId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.TeamsController",
+    "Method": "GetTeamsByParticipantName",
+    "RelativePath": "Teams/Get-Teams-By-ParticipantName/{participantName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "participantName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.TeamsController",
+    "Method": "GetAllTeams",
+    "RelativePath": "Teams/GetAllTeams",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.TeamsController",
+    "Method": "GetTeamByName",
+    "RelativePath": "Teams/GetTeamByName/{teamName}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GraduationProject_API.Controllers.TeamsController",
+    "Method": "UpdateTeam",
+    "RelativePath": "Teams/Update-Team/{teamId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "teamId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "GraduationProject_Core.Dtos.Team.UpdateTeamDto",
         "IsRequired": true
       }
     ],

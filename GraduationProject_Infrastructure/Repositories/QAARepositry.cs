@@ -31,8 +31,18 @@ namespace GraduationProject_Infrastructure.Repositories
 				Answer=dto.Answer,
 			};
 			var result= await dbContext.AddAsync(QaA);
-			await dbContext.SaveChangesAsync();
-			return true;
+
+			var saved = await dbContext.SaveChangesAsync();
+
+			// التحقق إذا تم حفظ الـ Post بنجاح
+			if (saved > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		public async Task<bool> Update_QAA_Async(int qaaId, int userId, UpdateQAADto dto)
 		{

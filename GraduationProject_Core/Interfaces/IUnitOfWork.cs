@@ -12,6 +12,11 @@ namespace GraduationProject_Core.Interfaces
 		IUserProfileRepositry userProfileRepositry { get; }
 		IQAARepositry iQAARepositry { get; }
 		IRuleRepositry iRuleRepositry { get; }
+		IPersonalExperianceRepositry personalExperianceRepositry { get; }
+		ITeamRepository teamRepository { get; }
+		IParticipantRepository iparticipantRepository { get; }
+		IPostRepositry iPostRepositry { get; }
+		ICommentRepositry iCommentRepositry { get; }
 		Task<int> SaveAsync(); //ال saveChanges
 							   //بترجعلي عدد الاسطر الي تم اضافتها او حذفها او التعديل عليها ..
 	}

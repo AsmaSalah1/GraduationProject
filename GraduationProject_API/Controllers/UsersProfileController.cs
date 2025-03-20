@@ -2,11 +2,13 @@
 using GraduationProject_Core.Helper;
 using GraduationProject_Core.Interfaces;
 using GraduationProject_Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProject_API.Controllers
 {
+	[Authorize]
 	[Route("[controller]")]
 	[ApiController]
 	public class UsersProfileController : ControllerBase

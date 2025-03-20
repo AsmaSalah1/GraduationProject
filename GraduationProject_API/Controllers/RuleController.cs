@@ -2,6 +2,7 @@
 using GraduationProject_Core.Helper;
 using GraduationProject_Core.Interfaces;
 using GraduationProject_Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace GraduationProject_API.Controllers
 			this.unitOfWork = unitOfWork;
 		}
 
+		[Authorize(Roles ="Admin")]
 		[HttpPost("Add-Rule")]
 		public async Task<IActionResult> AddRule(AddRuleDto dto)
 		{
@@ -41,7 +43,7 @@ namespace GraduationProject_API.Controllers
 			{
 				return Ok("Rule added successfully");
 			}
-			return BadRequest("There is an error");
+			return BadRequest(result);
 		}
 
 		[HttpGet("Get-All-Rules")]
@@ -56,6 +58,7 @@ namespace GraduationProject_API.Controllers
 		}
 
 
+		[Authorize(Roles ="Admin")]
 		[HttpPut("Update-Rule/{ruleId}")]
 		public async Task<IActionResult> UpdateRule(int ruleId, EditRuleDto dto)
 		{
@@ -85,6 +88,7 @@ namespace GraduationProject_API.Controllers
 			return BadRequest(result);
 		}
 
+		[Authorize(Roles ="Admin")]
 		[HttpDelete("Delete-Rule/{ruleId}")]
 		public async Task<IActionResult> DeleteRule(int ruleId)
 		{

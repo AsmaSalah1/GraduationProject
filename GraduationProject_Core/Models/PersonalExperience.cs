@@ -19,6 +19,8 @@ namespace GraduationProject_Core.Models
 		public bool IsReviewed { get; set; }
 		public bool IsDeleted { get; set; }
 		public bool IsAccepted { get; set; }
+		public DateTime DateTime { get; set; }
+
 
 		// علاقة مع جدول المستخدم (User)
 		public User User { get; set; }

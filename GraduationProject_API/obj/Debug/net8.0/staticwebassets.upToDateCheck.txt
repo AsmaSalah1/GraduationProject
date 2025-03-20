@@ -1,4 +1,9 @@
+wwwroot\Images\2fabfec7-e565-4a2c-b869-e70518934838دعاء.jpg
+wwwroot\Images\330225bf-997e-4d36-9c6d-245ae5760ff1دعاء.jpg
+wwwroot\Images\3b47867a-0ed2-4053-bb95-f6e499bfa751دعاء.jpg
 wwwroot\Images\5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg
+wwwroot\Images\81ed690a-b356-42f9-b2fe-ff841dd7513fدعاء.jpg
 wwwroot\Images\987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg
+wwwroot\Images\c7586c57-e5bc-4fbc-ba9e-0ff7223795ffدعاء.jpg
 wwwroot\Images\Man defult image.png
 wwwroot\Images\Women defult image.png

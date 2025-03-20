@@ -29,5 +29,6 @@ namespace GraduationProject_Core.Models
 		public PersonalExperience? PersonalExperience { get; set; }
 		public ICollection<QAA>? QAAs { get; set; }=new HashSet<QAA>();
 		public ICollection<Rule>? Rules { get; set; }=new HashSet<Rule>();
+		public ICollection<Comment> Comments { get; set; } =new List<Comment>();
 	}
 }

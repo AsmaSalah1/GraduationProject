@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "q8eVSHaGbYNvwuyQWAJtDUzSBNWOBIUMtTz3Z+ka75o=",
+  "Hash": "6DvOkBj2FqXv5KqpPb1f6YLb/ptkOH2FCelRNfQ97/w=",
   "Source": "GraduationProject_API",
   "BasePath": "_content/GraduationProject_API",
   "Mode": "Default",
@@ -16,6 +16,69 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\2fabfec7-e565-4a2c-b869-e70518934838دعاء.jpg",
+      "SourceId": "GraduationProject_API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\",
+      "BasePath": "_content/GraduationProject_API",
+      "RelativePath": "Images/2fabfec7-e565-4a2c-b869-e70518934838دعاء#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2ye43eerqq",
+      "Integrity": "VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\2fabfec7-e565-4a2c-b869-e70518934838دعاء.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\330225bf-997e-4d36-9c6d-245ae5760ff1دعاء.jpg",
+      "SourceId": "GraduationProject_API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\",
+      "BasePath": "_content/GraduationProject_API",
+      "RelativePath": "Images/330225bf-997e-4d36-9c6d-245ae5760ff1دعاء#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2ye43eerqq",
+      "Integrity": "VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\330225bf-997e-4d36-9c6d-245ae5760ff1دعاء.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\3b47867a-0ed2-4053-bb95-f6e499bfa751دعاء.jpg",
+      "SourceId": "GraduationProject_API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\",
+      "BasePath": "_content/GraduationProject_API",
+      "RelativePath": "Images/3b47867a-0ed2-4053-bb95-f6e499bfa751دعاء#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2ye43eerqq",
+      "Integrity": "VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\3b47867a-0ed2-4053-bb95-f6e499bfa751دعاء.jpg"
+    },
     {
       "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg",
       "SourceId": "GraduationProject_API",
@@ -38,6 +101,27 @@
       "OriginalItemSpec": "wwwroot\\Images\\5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg"
     },
     {
+      "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\81ed690a-b356-42f9-b2fe-ff841dd7513fدعاء.jpg",
+      "SourceId": "GraduationProject_API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\",
+      "BasePath": "_content/GraduationProject_API",
+      "RelativePath": "Images/81ed690a-b356-42f9-b2fe-ff841dd7513fدعاء#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2ye43eerqq",
+      "Integrity": "VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\81ed690a-b356-42f9-b2fe-ff841dd7513fدعاء.jpg"
+    },
+    {
       "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg",
       "SourceId": "GraduationProject_API",
       "SourceType": "Discovered",
@@ -57,6 +141,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\c7586c57-e5bc-4fbc-ba9e-0ff7223795ffدعاء.jpg",
+      "SourceId": "GraduationProject_API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\",
+      "BasePath": "_content/GraduationProject_API",
+      "RelativePath": "Images/c7586c57-e5bc-4fbc-ba9e-0ff7223795ffدعاء#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2ye43eerqq",
+      "Integrity": "VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\c7586c57-e5bc-4fbc-ba9e-0ff7223795ffدعاء.jpg"
     },
     {
       "Identity": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\Man defult image.png",
@@ -102,6 +207,252 @@
     }
   ],
   "Endpoints": [
+    {
+      "Route": "Images/2fabfec7-e565-4a2c-b869-e70518934838دعاء.2ye43eerqq.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\2fabfec7-e565-4a2c-b869-e70518934838دعاء.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "189560"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 23:09:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2ye43eerqq"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/2fabfec7-e565-4a2c-b869-e70518934838دعاء.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw="
+        }
+      ]
+    },
+    {
+      "Route": "Images/2fabfec7-e565-4a2c-b869-e70518934838دعاء.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\2fabfec7-e565-4a2c-b869-e70518934838دعاء.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "189560"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 23:09:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw="
+        }
+      ]
+    },
+    {
+      "Route": "Images/330225bf-997e-4d36-9c6d-245ae5760ff1دعاء.2ye43eerqq.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\330225bf-997e-4d36-9c6d-245ae5760ff1دعاء.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "189560"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 20:50:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2ye43eerqq"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/330225bf-997e-4d36-9c6d-245ae5760ff1دعاء.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw="
+        }
+      ]
+    },
+    {
+      "Route": "Images/330225bf-997e-4d36-9c6d-245ae5760ff1دعاء.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\330225bf-997e-4d36-9c6d-245ae5760ff1دعاء.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "189560"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 20:50:46 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw="
+        }
+      ]
+    },
+    {
+      "Route": "Images/3b47867a-0ed2-4053-bb95-f6e499bfa751دعاء.2ye43eerqq.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\3b47867a-0ed2-4053-bb95-f6e499bfa751دعاء.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "189560"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 23:10:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2ye43eerqq"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/3b47867a-0ed2-4053-bb95-f6e499bfa751دعاء.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw="
+        }
+      ]
+    },
+    {
+      "Route": "Images/3b47867a-0ed2-4053-bb95-f6e499bfa751دعاء.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\3b47867a-0ed2-4053-bb95-f6e499bfa751دعاء.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "189560"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 23:10:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw="
+        }
+      ]
+    },
     {
       "Route": "Images/5d5e8576-7f5e-4aa4-9970-a802f88b6348a.9ck04yzsbh.jpeg",
       "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\5d5e8576-7f5e-4aa4-9970-a802f88b6348a.jpeg",
@@ -185,6 +536,88 @@
       ]
     },
     {
+      "Route": "Images/81ed690a-b356-42f9-b2fe-ff841dd7513fدعاء.2ye43eerqq.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\81ed690a-b356-42f9-b2fe-ff841dd7513fدعاء.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "189560"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 23:08:56 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2ye43eerqq"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/81ed690a-b356-42f9-b2fe-ff841dd7513fدعاء.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw="
+        }
+      ]
+    },
+    {
+      "Route": "Images/81ed690a-b356-42f9-b2fe-ff841dd7513fدعاء.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\81ed690a-b356-42f9-b2fe-ff841dd7513fدعاء.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "189560"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 23:08:56 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw="
+        }
+      ]
+    },
+    {
       "Route": "Images/987320ca-34c4-4250-84e4-c10e91dc99f4a.9ck04yzsbh.jpeg",
       "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\987320ca-34c4-4250-84e4-c10e91dc99f4a.jpeg",
       "Selectors": [],
@@ -263,6 +696,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-+eJtxImSNeYB1eOcYeyEZGC6eatLfhhWaflXT+GDHg4="
+        }
+      ]
+    },
+    {
+      "Route": "Images/c7586c57-e5bc-4fbc-ba9e-0ff7223795ffدعاء.2ye43eerqq.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\c7586c57-e5bc-4fbc-ba9e-0ff7223795ffدعاء.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "189560"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 20:56:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2ye43eerqq"
+        },
+        {
+          "Name": "label",
+          "Value": "Images/c7586c57-e5bc-4fbc-ba9e-0ff7223795ffدعاء.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw="
+        }
+      ]
+    },
+    {
+      "Route": "Images/c7586c57-e5bc-4fbc-ba9e-0ff7223795ffدعاء.jpg",
+      "AssetFile": "C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Images\\c7586c57-e5bc-4fbc-ba9e-0ff7223795ffدعاء.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "189560"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Mar 2025 20:56:59 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-VmB148nsoIy/fIAmr6kEca3uRXsrjBL0JmFaj+AWMBw="
         }
       ]
     },
