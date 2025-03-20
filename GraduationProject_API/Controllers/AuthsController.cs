@@ -52,22 +52,43 @@ namespace GraduationProject_API.Controllers
 		}
 
 
+        //[HttpGet("confirm-email")]
+        //public async Task<IActionResult> ConfirmEmail([FromQuery] string email)
+        //{
+        //    if (string.IsNullOrEmpty(email))
+        //    {
+        //        return BadRequest("Email is required.");
+        //    }
+
+        //    var authHeader = Request.Headers["Authorization"].ToString();
+
+        //    if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
+        //    {
+        //        return Unauthorized("Missing or invalid Authorization header.");
+        //    }
+
+        //    var token = authHeader.Replace("Bearer ", "");
+
+        //    var result = await authRepositry.ConfirmEmail(email, token);
+
+        //    if (result == "Email confirmed successfully!")
+        //        return Ok(result);
+
+        //    return BadRequest("Invalid token or email confirmation failed.");
+        //}
+
         [HttpGet("confirm-email")]
-        public async Task<IActionResult> ConfirmEmail([FromQuery] string email)
+        public async Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email)
         {
             if (string.IsNullOrEmpty(email))
             {
                 return BadRequest("Email is required.");
             }
 
-            var authHeader = Request.Headers["Authorization"].ToString();
-
-            if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
-            {
-                return Unauthorized("Missing or invalid Authorization header.");
-            }
-
-            var token = authHeader.Replace("Bearer ", "");
+            //var decodedToken = WebUtility.UrlDecode(token);
+            //var decodedEmail = WebUtility.UrlDecode(email);
+            //Console.WriteLine($"decodedToken: {token}");
+            //Console.WriteLine($"decodedEmail: {decodedEmail}");
 
             var result = await authRepositry.ConfirmEmail(email, token);
 
@@ -76,6 +97,7 @@ namespace GraduationProject_API.Controllers
 
             return BadRequest("Invalid token or email confirmation failed.");
         }
+
 
         [HttpPost("LogIn")]
 		//localhost/api/AuthController/LogIn

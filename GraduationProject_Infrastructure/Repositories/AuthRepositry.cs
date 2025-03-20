@@ -36,32 +36,35 @@ namespace GraduationProject_Infrastructure.Repositories
 			this.dbContext = dbContext;
 		}
 
-		public async Task<string> RegisterAsync(User user, string password)
-		{
-			var result = await userManager.CreateAsync(user,password);
-			if (result.Succeeded) {
-				var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
-			//	var token = CreateToken(user);
-				//var encodedToken = WebUtility.UrlEncode(token);
-				//var encodedEmail = WebUtility.UrlEncode(user.Email);
-				Console.WriteLine("Generated Token: " + token); // اختبار وإظهار التوكن في الـ console أو الـ logs
+        public async Task<string> RegisterAsync(User user, string password)
+        {
+            var result = await userManager.CreateAsync(user, password);
+            if (result.Succeeded)
+            {
+                var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
-				var ConfirmEmailURL = $"https://localhost:7024/Auths/confirm-email?token={token}&email={user.Email}";
+                var encodedToken = WebUtility.UrlEncode(token);
+                var encodedEmail = WebUtility.UrlEncode(user.Email);
 
-				var email = new Email()
-				{
-					Subject = "Confirm your email",
-					Recivers = user.Email,
-					Body = $"Confirm your email by Click here {ConfirmEmailURL}",
-				};
-				EmailHealper.SendEmail(email);
-				return "User registered successfully! Please check your email to confirm your account.";
-			}
-			var errorMessage = result.Errors.Select(e=>e.Description).ToList();
-			return string.Join(',', errorMessage);
-		}
+                Console.WriteLine("Generated Token: " + token); // Debugging
 
-		public async Task<string> ConfirmEmail(string email, string token)
+                var ConfirmEmailURL = $"https://localhost:7024/Auths/confirm-email?token={encodedToken}&email={encodedEmail}";
+
+                var email = new Email()
+                {
+                    Subject = "Confirm your email",
+                    Recivers = user.Email,
+                    Body = $"Confirm your email by Click here {ConfirmEmailURL}",
+                };
+                EmailHealper.SendEmail(email);
+                return "User registered successfully! Please check your email to confirm your account.";
+            }
+            var errorMessage = result.Errors.Select(e => e.Description).ToList();
+            return string.Join(',', errorMessage);
+        }
+
+
+        public async Task<string> ConfirmEmail(string email, string token)
 		{
 			var user = await userManager.FindByEmailAsync(email);
 			if (user == null)
