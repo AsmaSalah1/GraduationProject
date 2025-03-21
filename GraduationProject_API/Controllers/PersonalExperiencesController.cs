@@ -50,9 +50,9 @@ namespace GraduationProject_API.Controllers
             }
 
            var result = await unitOfWork.personalExperianceRepositry.CreatePersonalExperianceAsync(userId.Value, dto);
-           if (result == "PersonalExperience Added Successfully")
+           if (result == "Personal Experience Added Successfully")
            {
-         	return Ok("PersonalExperience added successfully");
+         	return Ok("Personal Experience Added Successfully");
            }
           return BadRequest(result);
 		}

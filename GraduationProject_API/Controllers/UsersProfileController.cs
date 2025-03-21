@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProject_API.Controllers
 {
-	[Authorize]
+	//[Authorize]
 	[Route("[controller]")]
 	[ApiController]
 	public class UsersProfileController : ControllerBase

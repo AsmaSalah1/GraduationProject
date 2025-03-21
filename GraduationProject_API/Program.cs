@@ -59,9 +59,10 @@ namespace GraduationProject_API
             app.UseCors("Allow");
 
             app.UseAuthorization();
+			app.UseAuthentication();
 
 
-            app.MapControllers();
+			app.MapControllers();
 			//عشان ال global exeption handler
 			app.UseExceptionHandler(opt => { });
 			app.Run();
