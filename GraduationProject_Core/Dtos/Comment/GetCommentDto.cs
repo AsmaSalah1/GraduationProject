@@ -8,6 +8,7 @@ namespace GraduationProject_Core.Dtos.Comment
 {
 	public class GetCommentDto
 	{
+		public int CommentId { get; set; }
 		public string UserName { get; set; }
 		public string UserImage { get; set; }
 		public string CommentContent { get; set; }

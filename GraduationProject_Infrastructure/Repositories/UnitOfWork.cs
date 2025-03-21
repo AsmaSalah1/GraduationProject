@@ -36,6 +36,8 @@ namespace GraduationProject_Infrastructure.Repositories
 
 		public ICommentRepositry iCommentRepositry { get; }
 
+		public ILikeRepository iLikeRepository { get; }
+
 		public async Task<int> SaveAsync()
 	=> await dbContext.SaveChangesAsync();
 
@@ -68,6 +70,7 @@ namespace GraduationProject_Infrastructure.Repositories
 			iparticipantRepository =new ParticipantRepository(dbContext);
 			iPostRepositry =new PostRepositry(dbContext);
 			iCommentRepositry = new CommentRepositry(dbContext);
+			iLikeRepository = new LikeRepository(dbContext);
 		}
 	}
 }

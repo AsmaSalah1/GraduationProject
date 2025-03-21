@@ -51,47 +51,48 @@ namespace GraduationProject_API.Controllers
 			}
 			return BadRequest(result);
 		}
-		//[HttpGet("confirm-email")]
-		//public async Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email)
-		//{
-		//	if (!ModelState.IsValid) {
-		//		return BadRequest(ModelState);
-		//	}
-		//    //var decodedEmail=WebUtility.UrlDecode(email);
-		//	//var decodedToken = WebUtility.UrlDecode(token);
-
-		//	var result =await authRepositry.ConfirmEmail(email, token);
-		//	if(result == "Email confirmed successfully!")
-		//	{
-		//		return Ok(result);
-		//	}
-		//	return BadRequest(result);
-		//}
-
 		[HttpGet("confirm-email")]
-		public async Task<IActionResult> ConfirmEmail([FromQuery] string email)
+		public async Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email)
 		{
-			if (string.IsNullOrEmpty(email))
+			if (!ModelState.IsValid)
 			{
-				return BadRequest("Email is required.");
+				return BadRequest(ModelState);
 			}
-
-			var authHeader = Request.Headers["Authorization"].ToString();
-
-			if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
-			{
-				return Unauthorized("Missing or invalid Authorization header.");
-			}
-
-			var token = authHeader.Replace("Bearer ", "");
+			//var decodedEmail=WebUtility.UrlDecode(email);
+			//var decodedToken = WebUtility.UrlDecode(token);
 
 			var result = await authRepositry.ConfirmEmail(email, token);
-
 			if (result == "Email confirmed successfully!")
+			{
 				return Ok(result);
-
-			return BadRequest("Invalid token or email confirmation failed.");
+			}
+			return BadRequest(result);
 		}
+
+		//[HttpGet("confirm-email")]
+		//public async Task<IActionResult> ConfirmEmail([FromQuery] string email)
+		//{
+		//	if (string.IsNullOrEmpty(email))
+		//	{
+		//		return BadRequest("Email is required.");
+		//	}
+
+		//	var authHeader = Request.Headers["Authorization"].ToString();
+
+		//	if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
+		//	{
+		//		return Unauthorized("Missing or invalid Authorization header.");
+		//	}
+
+		//	var token = authHeader.Replace("Bearer ", "");
+
+		//	var result = await authRepositry.ConfirmEmail(email, token);
+
+		//	if (result == "Email confirmed successfully!")
+		//		return Ok(result);
+
+		//	return BadRequest("Invalid token or email confirmation failed.");
+		//}
 		[HttpPost("LogIn")]
 		//localhost/api/AuthController/LogIn
 		public async Task<IActionResult> Login([FromBody] LogInDTOs logInDTOs)

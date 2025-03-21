@@ -4,6 +4,7 @@ using GraduationProject_Core.Interfaces;
 using GraduationProject_Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraduationProject_API.Controllers
 {
@@ -54,7 +55,34 @@ namespace GraduationProject_API.Controllers
 			}
 			return BadRequest(posts);
 		}
+		[HttpGet("Get-Post-Link/{postId}")]
+		public async Task<IActionResult> GetPostById(int postId)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+			var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
+			if (string.IsNullOrEmpty(token))
+			{
+				return Unauthorized("Token is missing");
+			}
+
+			var userId = ExtractClaims.ExtractUserId(token);
+			if (!userId.HasValue)
+			{
+				return Unauthorized("Invalid user token");
+			}
+
+			var result = await unitOfWork.iPostRepositry.GetPostLink(postId);
+
+			if (result == null)
+				return NotFound("Post not found.");
+
+			return Ok(result);
+		}
+		
 		[HttpDelete("Delete-Post/{postId}")]
 		public async Task<IActionResult> Delete(int postId)
 		{

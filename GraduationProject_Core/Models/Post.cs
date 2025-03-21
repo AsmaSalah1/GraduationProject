@@ -25,5 +25,6 @@ namespace GraduationProject_Core.Models
 		// علاقة مع جدول المستخدم (User) - المنشور كتبه مستخدم واحد
 		public User User { get; set; }
 		public ICollection<Comment> Comments { get; set; }=new List<Comment>();	
+		public ICollection<Like> Likes { get; set; }=new List<Like>();
 	}
 }

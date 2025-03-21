@@ -30,5 +30,7 @@ namespace GraduationProject_Core.Models
 		public ICollection<QAA>? QAAs { get; set; }=new HashSet<QAA>();
 		public ICollection<Rule>? Rules { get; set; }=new HashSet<Rule>();
 		public ICollection<Comment> Comments { get; set; } =new List<Comment>();
+		public ICollection<Like> Likes { get; set; } = new List<Like>();
+
 	}
 }

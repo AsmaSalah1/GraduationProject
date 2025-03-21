@@ -80,11 +80,12 @@ namespace GraduationProject_Infrastructure.Repositories
 			return "Rule updated successfully";
 		}
 
-		public async Task<IEnumerable<AddRuleDto>> GetAllRulesAsync()
+		public async Task<IEnumerable<GetRuleDto>> GetAllRulesAsync()
 		{
 			var rule = await dbContext.Rules.AsNoTracking().ToListAsync();
-			var result = rule.Select(x => new AddRuleDto()
+			var result = rule.Select(x => new GetRuleDto()
 			{
+				Id=x.RuleID,
 				// تحويل النص إلى قائمة
 				Description = x.Description.Split("\n").ToList(),
 				Title = x.Title,

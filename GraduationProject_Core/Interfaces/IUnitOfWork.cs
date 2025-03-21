@@ -17,6 +17,7 @@ namespace GraduationProject_Core.Interfaces
 		IParticipantRepository iparticipantRepository { get; }
 		IPostRepositry iPostRepositry { get; }
 		ICommentRepositry iCommentRepositry { get; }
+		ILikeRepository iLikeRepository { get; }
 		Task<int> SaveAsync(); //ال saveChanges
 							   //بترجعلي عدد الاسطر الي تم اضافتها او حذفها او التعديل عليها ..
 	}

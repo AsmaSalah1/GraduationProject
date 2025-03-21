@@ -14,6 +14,9 @@ namespace GraduationProject_Core.Interfaces
 		Task<PostPagedResponseDto<GetPostDto>> GetPostDtos(int PageIndex,int PageSize);
 		Task<PostPagedResponseDto<GetPostDto>> PaginationAsync(IQueryable<GetPostDto> query, int PageIndex, int PageSize);
 	    Task<string> DeletePost(int userId,int PostId);
-	
+		Task<GetPostDto> GetPostLink(int postId);
+
+		//	Task<string> GetPostLink(int postId);
+
 	}
 }

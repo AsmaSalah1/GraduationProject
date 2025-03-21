@@ -58,6 +58,7 @@ namespace GraduationProject_Infrastructure.Repositories
 				.OrderByDescending(c => c.CreatedAt)
 				.Select(x => new GetCommentDto
 				{
+					CommentId=x.Id,
 					UserName=x.User.UserName,
 					CreatedAt = x.CreatedAt,
 					CommentContent = x.Content,

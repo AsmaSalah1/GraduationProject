@@ -31,5 +31,24 @@ namespace GraduationProject_Core.Helper
 				return null;
 			}
 		}
+		public static List<string> ExtractRoles(string token)
+		{
+			try
+			{
+				var tokenHandler = new JwtSecurityTokenHandler();
+				var jwtToken = tokenHandler.ReadJwtToken(token);
+
+				// استخراج جميع الـ roles من الـ claims
+				var rolesClaims = jwtToken.Claims.Where(t => t.Type == ClaimTypes.Role)
+					.Select(t => t.Value).ToList();
+
+				return rolesClaims;
+			}
+			catch (Exception ex)
+			{
+				return new List<string>(); // إرجاع قائمة فارغة في حال حدوث خطأ
+			}
+		}
+
 	}
 }

@@ -36,6 +36,7 @@ namespace GraduationProject_Infrastructure.Repositories
 			}
 			return new ViewProfileDtos()
 			{
+				UserId=user.Id,
 				UserName = user.UserName,
 				Email = user.Email,
 				Gender = user.Gender,

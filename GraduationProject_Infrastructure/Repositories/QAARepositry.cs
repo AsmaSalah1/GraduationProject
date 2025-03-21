@@ -77,11 +77,12 @@ namespace GraduationProject_Infrastructure.Repositories
 			return true;
 		}
 
-		public async Task<IEnumerable<CreateQAADto>> GetAll_QAA_Async()
+		public async Task<IEnumerable<GetQAADto>> GetAll_QAA_Async()
 		{
 			var result = await dbContext.QAAs.AsNoTracking().ToListAsync();
-			var Dto =result.Select(x => new CreateQAADto()
+			var Dto =result.Select(x => new GetQAADto()
 			{
+				Id=x.QAAID,
 				Answer = x.Answer,
 				Question = x.Question,
 			});

@@ -10,7 +10,7 @@ namespace GraduationProject_Core.Interfaces
 	public interface IRuleRepositry
 	{
 		Task<string> AddRuleAsync(int userId, AddRuleDto dto);
-		Task<IEnumerable<AddRuleDto>> GetAllRulesAsync();
+		Task<IEnumerable<GetRuleDto>> GetAllRulesAsync();
 		Task<string> EditRuleAsync(int userId,int RuleId,EditRuleDto dto);
 		Task<string> DeleteRuleAsync(int userId, int ruleId);
 

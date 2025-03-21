@@ -93,7 +93,7 @@ namespace GraduationProject_Infrastructure.Data
 		public DbSet<SponsorComptiition> SponsorComptiitions { get; set; }
 		public DbSet<CompetitionImages> CompetitionImages { get; set; }
 		public DbSet<UniversityImages> UniversityImages { get; set; }
-
+		public DbSet<Like> Likes { get; set; }
 		public DbSet<Comment> Comments { get; set; }
 	}
 }

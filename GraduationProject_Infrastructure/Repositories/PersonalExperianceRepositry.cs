@@ -54,6 +54,7 @@ namespace GraduationProject_Infrastructure.Repositories
 									 .Where(w => w.IsAccepted == true)
 									 .Select(x => new GetPersonalExperienceDto
 									 {
+										 PersonalExperienceId=x.PersonalExperienceId,
 										 Content = x.Content,
 										 DateTime = x.DateTime,
 										 ImageName = x.User.Image,

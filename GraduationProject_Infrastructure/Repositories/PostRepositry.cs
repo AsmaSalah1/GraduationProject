@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,12 +63,15 @@ namespace GraduationProject_Infrastructure.Repositories
 				.Include(c => c.Comments)
 				.Select(x => new GetPostDto
 				{
+					PostId=x.PostId,
 					Description = x.Description,
 					PosterName = x.User.UserName,
 					PostImage = x.Image,
 					ProfileImage = x.User.Image,
 					Title = x.Title,
-					university = x.User.University.Name
+					university = x.User.University.Name,
+					TotalLikes=x.Likes.Count(),
+					TotalComments = x.Comments.Count()
 				}).AsNoTracking()
 				.AsQueryable();	
 
@@ -109,5 +113,33 @@ namespace GraduationProject_Infrastructure.Repositories
 			return "post Deleted Successfully";
 		}
 
+		//public async Task<string> GetPostLink(int postId)
+		//{
+		//	var post = await dbContext.Posts.FindAsync(postId);
+		//	if (post == null) {
+		//		return "Post not exist";
+		//	}
+		//	return $"https://localhost:7024/Posts/Get-Post-Link/{postId} ";
+		//}
+		public async Task<GetPostDto> GetPostLink(int postId)
+		{
+			var post = await dbContext.Posts.Include(x=>x.User).FirstOrDefaultAsync(c=>c.PostId==postId);
+			if (post == null)
+			{
+				return null;
+			}
+
+			var postdto=new GetPostDto()
+			{
+				PostId = post.PostId,
+				Description=post.Description,
+				PosterName=post.User.UserName,
+				PostImage=post.Image,
+				ProfileImage=post.User.Image,
+				Title=post.Title,
+				university=post.User.UserName
+			};
+			return postdto;
+		}
 	}
 }

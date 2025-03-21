@@ -9,6 +9,7 @@ namespace GraduationProject_Core.Dtos.UserProfile
 {
 	public class ViewProfileDtos
 	{
+		public int UserId { get; set; }
 		public string UserName { get; set; }
 		public string Email { get; set; }
 		public string? Image { get; set; }

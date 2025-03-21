@@ -9,12 +9,15 @@ namespace GraduationProject_Core.Dtos.Post
 {
 	public class GetPostDto
 	{
+		public int PostId { get; set; }
 		public string ProfileImage { get; set; }
 		public string PosterName { get; set; }
 		public string university { get;set; }
 		public string PostImage { get;set;}
 		public string Title { get; set; }
 		public string Description { get; set; }
+	  	public double TotalLikes { get; set; }
+      	public double TotalComments { get; set; }
 		//public List<Comment> Comments { get; set; }
 
 	}

@@ -43,11 +43,11 @@ namespace GraduationProject_Infrastructure.Repositories
 				await userManager.AddToRoleAsync(user, "User");
 				var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
 			//	var token = CreateToken(user);
-				//var encodedToken = WebUtility.UrlEncode(token);
-				//var encodedEmail = WebUtility.UrlEncode(user.Email);
-				Console.WriteLine("Generated Token: " + token); // اختبار وإظهار التوكن في الـ console أو الـ logs
+				var encodedToken = WebUtility.UrlEncode(token);
+				var encodedEmail = WebUtility.UrlEncode(user.Email);
+				//Console.WriteLine("Generated Token: " + token); // اختبار وإظهار التوكن في الـ console أو الـ logs
 
-				var ConfirmEmailURL = $"https://localhost:7024/Auths/confirm-email?token={token}&email={user.Email}";
+				var ConfirmEmailURL = $"https://localhost:7024/Auths/confirm-email?token={encodedToken}&email={encodedEmail}";
 
 				var email = new Email()
 				{
@@ -89,7 +89,7 @@ namespace GraduationProject_Infrastructure.Repositories
 			{
 				return null;
 			}
-			return CreateToken(user);
+			return await CreateToken(user);
 		}
 
 		public async Task<string> ForgetPassword(string Useremail)
@@ -142,28 +142,64 @@ namespace GraduationProject_Infrastructure.Repositories
 
 			return "There is an error";
 		}
-
-		private string CreateToken(User user)
+		private async Task<string> CreateToken(User user)
 		{
-			var claims = new[]
+			var roles = await userManager.GetRolesAsync(user);
+
+			var claims = new List<Claim>
+	{
+		new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+		new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+	};
+
+			foreach (var role in roles)
 			{
-			new Claim(JwtRegisteredClaimNames.Sub,user.UserName),
-			// = new Claim (ClaimTypes.GivenName,user.UserName),
-			new Claim(ClaimTypes.NameIdentifier,user.Id.ToString())
-		};
+				claims.Add(new Claim(ClaimTypes.Role, role));
+			}
+
 			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["jwt:key"]));
-			//=	var key2 = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("jwt")["key"]));
-			var crad = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+			var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
 			var token = new JwtSecurityToken(
 				configuration["jwt:audience"],
 				configuration["jwt:issure"],
 				claims,
-				signingCredentials: crad,
-				expires: DateTime.UtcNow.AddDays(14)
-				);
+				expires: DateTime.UtcNow.AddDays(14),
+				signingCredentials: creds
+			);
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
+		//private string CreateToken(User user)
+		//{
+		//	var roles =  userManager.GetRolesAsync(user);
+
+		//	var claims = new List<Claim>()
+		//	{
+		//	new Claim(JwtRegisteredClaimNames.Sub,user.UserName),
+		//	// = new Claim (ClaimTypes.GivenName,user.UserName),
+		//	new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+
+		//	//new Claim(ClaimTypes.Role,role)
+		//};			
+		//		foreach (var role in roles)
+		//		{
+		//			claims.Add(new Claim(ClaimTypes.Role, role));
+		//		}
+
+		//	var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["jwt:key"]));
+		//	//=	var key2 = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("jwt")["key"]));
+		//	var crad = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+		//	var token = new JwtSecurityToken(
+		//		configuration["jwt:audience"],
+		//		configuration["jwt:issure"],
+		//		claims,
+		//		signingCredentials: crad,
+		//		expires: DateTime.UtcNow.AddDays(14)
+		//		);
+
+		//	return new JwtSecurityTokenHandler().WriteToken(token);
+		//}
 
 		public async Task<string> ChangePassword(ChangePasswordDtos dtos, int userId)
 		{
