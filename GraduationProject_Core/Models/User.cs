@@ -20,7 +20,7 @@ namespace GraduationProject_Core.Models
 		[ForeignKey(nameof(PersonalExperience))]
 		public int? PersonalExperienceId { get; set; }
 		public string? Image { get; set; }
-		public Gender? Gender { get; set; }
+		public Gender Gender { get; set; }
 		public string? GithubLink { get; set; }
 		public string? LinkedInLink { get; set; }
 		public string? Cv { get; set; }

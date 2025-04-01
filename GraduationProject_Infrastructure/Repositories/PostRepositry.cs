@@ -22,8 +22,13 @@ namespace GraduationProject_Infrastructure.Repositories
 			this.dbContext = dbContext;
 		}
 
-		public async Task<string> AddPost(int userId, CreatePostDto dto)
+		public async Task<string> AddPost(int userId, CreatePostDto dto,string token)
 		{
+			var role = ExtractClaims.ExtractRoles(token);
+			if (role == null)
+			{//اليوزر ما اله صلاحية
+				return "The user does not have permission.";
+			}
 			var post = new Post()
 			{
 				CreatedAt = DateTime.Now,
@@ -38,7 +43,14 @@ namespace GraduationProject_Infrastructure.Repositories
 				string newFileName = FileHelper.UplodeFile(dto.Image, "Images");
 				post.Image = newFileName;
 			}
-
+			if (role[0] == "Admin")
+			{
+				post.Posttype = Post.PostType.Global;
+			}
+			if (role[0] == "SuperAdmin")
+			{
+				post.Posttype = Post.PostType.Local;
+			}
 			// إضافة الـ Post إلى قاعدة البيانات
 			var result = await dbContext.Posts.AddAsync(post);
 
@@ -56,11 +68,12 @@ namespace GraduationProject_Infrastructure.Repositories
 			}
 		}
 
-		public async Task<PostPagedResponseDto<GetPostDto>> GetPostDtos(int PageIndex, int PageSize)
+		public async Task<PostPagedResponseDto<GetPostDto>> GetPostDtos(int PageIndex, int PageSize, Post.PostType type)
 		{
 			var posts = dbContext.Posts
 				.Include(u => u.User).ThenInclude(w=>w.University)
 				.Include(c => c.Comments)
+				.Where(q=>q.Posttype==type)
 				.Select(x => new GetPostDto
 				{
 					PostId=x.PostId,
@@ -78,7 +91,8 @@ namespace GraduationProject_Infrastructure.Repositories
 			if(posts == null)
 			{
 				return null;
-			} 
+			}
+		
 			var result=await PaginationAsync(posts, PageIndex, PageSize);
 			return result;
 		}
@@ -108,8 +122,10 @@ namespace GraduationProject_Infrastructure.Repositories
 				return "User or post not found";
 
 			}
+			FileHelper.DeleteFile(post.Image, "Images");
 			dbContext.Posts.Remove(post);
 			await dbContext.SaveChangesAsync();
+
 			return "post Deleted Successfully";
 		}
 

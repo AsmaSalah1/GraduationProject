@@ -14,5 +14,12 @@ namespace GraduationProject_Core.Interfaces
 		Task<PersonalExperiencePagedResponseDto<GetPersonalExperienceDto>> GetAllPersonalExperience(int PageIndex, int PageSize);
 		Task<PersonalExperiencePagedResponseDto<GetPersonalExperienceDto>> PaginationAsync(IQueryable<GetPersonalExperienceDto> query, int PageIndex, int PageSize);
 		Task<string> DeleteExperience(int userId, int experienceId);
+
+		Task<PersonalExperiencePagedResponseDto<GetPersonalExperienceDto>> GetUnReviewedPersonalExperience(int PageIndex, int PageSize);
+		Task<string> AcceptPersonalExperience(int PersonalExperienceId);
+		Task<string> DeletePersonalExperienceByAdmin(int PersonalExperienceId);
+		Task<List<GetPersonalExperienceDto>> Get_UnReviewed_Personal_Experience();
+
+
 	}
 }

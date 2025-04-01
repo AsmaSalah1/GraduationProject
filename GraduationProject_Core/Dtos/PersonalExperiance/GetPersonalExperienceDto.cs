@@ -8,6 +8,7 @@ namespace GraduationProject_Core.Dtos.PersonalExperiance
 {
 	public class GetPersonalExperienceDto
 	{
+		public int UserId { get; set; }
 		public int PersonalExperienceId { get; set; }
 		public string UserName { get; set; }  // اسم المستخدم
 		public string ImageName { get; set; }     // صورة المستخدم

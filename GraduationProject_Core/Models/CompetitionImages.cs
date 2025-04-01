@@ -12,7 +12,7 @@ namespace GraduationProject_Core.Models
 	{
 		[Key]
 		public int CompetitionImagesId { get; set; }
-		[ForeignKey(nameof(University))]
+		[ForeignKey(nameof(Competition))]
 		public int CompetitionId { get; set; }
 		public string ImageName { get; set; }
 		public Competition Competition { get; set; }

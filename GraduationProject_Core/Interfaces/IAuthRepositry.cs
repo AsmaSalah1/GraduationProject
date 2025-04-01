@@ -16,6 +16,10 @@ namespace GraduationProject_Core.Interfaces
 		Task<string> ConfirmEmail (string email, string token);
 		Task<string> LogInAsync(string email, string password);
 		Task<string> ChangePassword(ChangePasswordDtos dtos,int userId);
+		Task<string> CreateSubAdminAccountAsync(User user, string password);
+		Task<List<SubAdminDtos>> GetAllSubAdminAsync();
+		Task<string> DeleteSubAdminAsync(int userId);
+		Task<string> ContactUsAsync(ContactUsDto dto,int UserId);
 
 	}
 }

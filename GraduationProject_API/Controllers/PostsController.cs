@@ -13,10 +13,12 @@ namespace GraduationProject_API.Controllers
 	public class PostsController : ControllerBase
 	{
 		private readonly IUnitOfWork unitOfWork;
+		private readonly IWebHostEnvironment env;
 
-		public PostsController(IUnitOfWork unitOfWork)
+		public PostsController(IUnitOfWork unitOfWork,IWebHostEnvironment env)
 		{
 			this.unitOfWork = unitOfWork;
+			this.env = env;
 		}
 		[HttpPost("Create-post")]
 		public async Task<IActionResult> CreatePost(CreatePostDto dto) {
@@ -36,8 +38,9 @@ namespace GraduationProject_API.Controllers
 			{
 				return Unauthorized("Invalid user token");
 			}
-
-			var result = await unitOfWork.iPostRepositry.AddPost(userId.Value, dto);
+			
+			
+			var result = await unitOfWork.iPostRepositry.AddPost(userId.Value, dto,token);
 			if (result == "Post added successfully.")
 			{
 				return Ok("Post added successfully");
@@ -46,9 +49,19 @@ namespace GraduationProject_API.Controllers
 		}
 
 		[HttpGet("Get-Posts")]
-		public async Task<IActionResult> Get(int pageIndex = 1,int PageSize= 5)
+		public async Task<IActionResult> Get(int pageIndex = 1,int PageSize= 5, Post.PostType type=Post.PostType.Global)
 		{
-			var posts=await unitOfWork.iPostRepositry.GetPostDtos(pageIndex, PageSize);
+			string baseUrl = $"{Request.Scheme}://{Request.Host}";
+			var posts=await unitOfWork.iPostRepositry.GetPostDtos(pageIndex, PageSize,type);
+
+			foreach (var item in posts.Posts)
+			{
+				string relativePath = item.PostImage.Replace(env.WebRootPath, "").Replace("\\", "/");
+				item.PostImage = $"{baseUrl}{relativePath}";
+				string relativePath1 = item.ProfileImage.Replace(env.WebRootPath, "").Replace("\\", "/");
+				item.ProfileImage = $"{baseUrl}{relativePath1}";
+			}
+
 			if(posts != null)
 			{
 				return Ok(posts);

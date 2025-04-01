@@ -11,7 +11,7 @@ namespace GraduationProject_Core.Dtos.Auth
 		public string Subject { get; set; }
 		public string Body { get; set; }
 		public string Recivers { get; set; }
-
-
+		public string Sender { get; set; } // مرسل البريد
+		public string SenderPassword { get; set; }
 	}
 }

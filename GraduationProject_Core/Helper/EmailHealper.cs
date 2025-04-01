@@ -1,4 +1,6 @@
 ﻿using GraduationProject_Core.Dtos.Auth;
+using Microsoft.Extensions.Configuration;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,11 @@ namespace GraduationProject_Core.Helper
 {
 	public class EmailHealper
 	{
+		private readonly IConfiguration _configuration;
+		public EmailHealper(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
 		public static void SendEmail(Email email)
 		{
 			try
@@ -26,5 +33,44 @@ namespace GraduationProject_Core.Helper
 				Console.WriteLine("Failed to send email: " + ex.Message);
 			}
 		}
+		public static void SendEmail2(Email email)
+		{
+			try
+			{
+				var client = new SmtpClient("smtp.gmail.com", 587)
+				{
+					EnableSsl = true,
+					Credentials = new NetworkCredential(email.Sender, email.SenderPassword)
+				};
+
+				client.Send(email.Sender, email.Recivers, email.Subject, email.Body);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("Failed to send email: " + ex.Message);
+			}
+		}
+		//public async Task SendEmailAsync(string name, string userEmail, string message)
+		//{
+		//	var email = new MimeMessage;
+		//	email.From.Add(MailboxAddress.Parse(_configuration["EmailSettings:SenderEmail"]));  // البريد الذي سيرسل منه الرسالة
+		//	email.To.Add(MailboxAddress.Parse(_configuration["EmailSettings:AdminEmail"]));    // بريد الأدمن الذي سيستقبل الرسالة
+		//	email.Subject = "New Contact Form Submission from " + name;
+
+		//	email.Body = new TextPart("plain")
+		//	{
+		//		Text = $"👤 Name: {name}\n📧 Email: {userEmail}\n✉️ Message: {message}"
+		//	};
+
+		//	using var smtp = new SmtpClient();
+		//	await smtp.ConnectAsync(_configuration["EmailSettings:SmtpServer"],
+		//							int.Parse(_configuration["EmailSettings:SmtpPort"]),
+		//							true);
+		//	await smtp.AuthenticateAsync(_configuration["EmailSettings:SenderEmail"],
+		//								 _configuration["EmailSettings:SenderPassword"]);
+		//	await smtp.SendAsync(email);
+		//	await smtp.DisconnectAsync(true);
+		//}
+
 	}
 }

@@ -4,12 +4,14 @@ using GraduationProject_Core.Interfaces;
 using GraduationProject_Core.Models;
 using GraduationProject_Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
@@ -91,7 +93,6 @@ namespace GraduationProject_Infrastructure.Repositories
 			}
 			return await CreateToken(user);
 		}
-
 		public async Task<string> ForgetPassword(string Useremail)
 		{
 			// 1. التحقق من صلاحية البريد الإلكتروني (البريد الإلكتروني صالح إذا كان له تنسيق صحيح)
@@ -101,24 +102,28 @@ namespace GraduationProject_Infrastructure.Repositories
 				return "Invalid email format"; // إرجاع رسالة في حال كان التنسيق غير صحيح
 			}
 			var user = await userManager.FindByEmailAsync(Useremail);
-			if(user is null)
+			if (user is null)
 			{
 				return "Email not registered";
 			}
+
 			//ابعث توكن عشان التشفير و اعرف الايميل لاي يوزر
 			var token = await userManager.GeneratePasswordResetTokenAsync(user);
 			//var resetPasswordLink = $"https://localhost:7024/Auths/reset-password?token={token}&email={Useremail}";
-			var resetPasswordLink = $"https://yourfrontend.com/reset-password?token={token}&email={Useremail}";
-
+			var encodedToken = WebUtility.UrlEncode(token);
+			var encodedEmail = WebUtility.UrlEncode(user.Email);
+			var resetPasswordLink = $"https://yourfrontend.com/reset-password?token={token}&email={user.Email}";
 			var email = new Email()
 			{
 				Subject = "Reset Password",
 				Recivers = Useremail,
 				Body = $"Hello,\n\nYou requested to reset your password. Please click the link below to proceed:\n\n" +
-		               $"{resetPasswordLink}\n\nIf you did not request this, please ignore this email.\n\nThanks.",
+					   $"{resetPasswordLink}\n\nIf you did not request this, please ignore this email.\n\nThanks.",
 			};
 			EmailHealper.SendEmail(email);
-			return "Email Sent successfully";
+			//	string[] ret=[encodedToken,encodedEmail];
+			//return ret;
+			return $"token={encodedToken}&email={encodedEmail}";
 		}
 
 		public async Task<string> ResetPassword(string email, string password, string token)
@@ -216,5 +221,99 @@ namespace GraduationProject_Infrastructure.Repositories
  			}
 				return "Password changed successfully.";
 		}
+
+		public async Task<string> CreateSubAdminAccountAsync(User user, string password)
+		{
+			var result = await userManager.CreateAsync(user, password);
+			if (result.Succeeded)
+			{
+				await userManager.AddToRoleAsync(user, "SuperAdmin");
+				return "SubAdmin registered successfully!";
+			}
+			var errorMessage = result.Errors.Select(e => e.Description).ToList();
+			return string.Join(',', errorMessage);
+		}
+
+		public async Task<List<SubAdminDtos>> GetAllSubAdminAsync()
+		{
+			var users = await dbContext.Users.AsNoTracking().ToListAsync();
+			// تجهيز الـ Dtos التي ستحتوي على اسم المستخدم واسم الرول
+			var subAdminDtos = new List<SubAdminDtos>();
+
+			foreach (var user in users)
+			{
+				var role = await userManager.GetRolesAsync(user);  // جلب كل الرولات للمستخدم
+				var subAdminDto = new SubAdminDtos
+				{
+					Id=user.Id,
+					Name = user.UserName,     // اسم المستخدم
+					Role = role.FirstOrDefault(),  // اسم الرول (الافتراضي هو SubAdmin)
+					Email = user.Email,
+					Gender = user.Gender,
+					Image = user.Image ?? "/default image/Man default image.png"
+				};
+				subAdminDtos.Add(subAdminDto);
+			}
+			var subAdmins= new List<SubAdminDtos>();
+			foreach(var admin in subAdminDtos)
+			{
+				if(admin.Role== "SuperAdmin")
+				{
+					subAdmins.Add(admin);
+				}
+			}
+			return subAdmins;
+		}
+
+		public async Task<string> DeleteSubAdminAsync(int userId)
+		{
+			var user = await userManager.FindByIdAsync(userId.ToString());
+			if (user == null)
+			{
+				return "User not found";
+			}
+			var role = await userManager.GetRolesAsync(user);  // جلب كل الرولات للمستخدم
+
+			// تحقق من أن المستخدم لديه الصلاحية (SuperAdmin في هذه الحالة)
+			bool isSubAdmin = role.Contains("SuperAdmin"); 
+			if (!isSubAdmin)
+			{
+				return "User is not a SubAdmin";
+			}
+			foreach (var r in role)
+			{
+				await userManager.RemoveFromRoleAsync(user, r);
+			}
+			// حذف المستخدم
+			var result = await userManager.DeleteAsync(user);
+			if (result.Succeeded)
+			{
+				return "SubAdmin deleted successfully";
+			}
+
+			return string.Join(",", result.Errors.Select(e => e.Description));
+		}
+
+		public async Task<string> ContactUsAsync(ContactUsDto dto,int UserId)
+		{
+			// 1. التحقق من صلاحية البريد الإلكتروني (البريد الإلكتروني صالح إذا كان له تنسيق صحيح)
+			var isValidEmail = new EmailAddressAttribute().IsValid(dto.Email);
+			if (!isValidEmail)
+			{
+				return "Invalid email format"; // إرجاع رسالة في حال كان التنسيق غير صحيح
+			}
+			var user = await userManager.FindByIdAsync(UserId.ToString());
+			var email = new Email()
+			{
+				Sender=user.Email,
+				SenderPassword=user.PasswordHash,
+				Subject = "PCPC Website Contact Us",
+				Recivers = "mustafaalrifaya3@gmail.com",
+				Body = $"{dto.Message}",
+			};
+			EmailHealper.SendEmail2(email);
+			return "Email sent successfully.";
+		}
+
 	}
 }

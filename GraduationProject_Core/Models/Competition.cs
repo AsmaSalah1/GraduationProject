@@ -24,8 +24,8 @@ namespace GraduationProject_Core.Models
 		public ICollection<CompetitionImages> CompetitionImages { get; set; }=new HashSet<CompetitionImages>();
 		public enum CompetitionType
 		{
-			Local,
-			PCPC
+			Global,
+			Local
 		}
 	}
 

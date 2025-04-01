@@ -4,6 +4,7 @@ using GraduationProject_Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraduationProject_Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250321230416_AddPostTypeToPostTable")]
+    partial class AddPostTypeToPostTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -544,23 +547,6 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.HasIndex("UniversityId");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = -1,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c092be01-c037-408e-8542-be3db5c29707",
-                            Email = "mustafaalrifaya3@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MUSTAFAALRIFAYA3@GMAIL.COM",
-                            NormalizedUserName = "MUSTAFAALRIFAYA",
-                            PasswordHash = "AQAAAAIAAYagAAAAECMj+2HInt4Ne6vZnF2XpqUdGHaLD2TmZSrL+DQ8o0Qvt0117z/EQAP59mfb8uldnw==",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "mustafaalrifaya"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -695,13 +681,6 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = -1,
-                            RoleId = 1
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>

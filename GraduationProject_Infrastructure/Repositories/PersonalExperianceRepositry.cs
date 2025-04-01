@@ -54,7 +54,8 @@ namespace GraduationProject_Infrastructure.Repositories
 									 .Where(w => w.IsAccepted == true)
 									 .Select(x => new GetPersonalExperienceDto
 									 {
-										 PersonalExperienceId=x.PersonalExperienceId,
+										 UserId = x.UserId,
+										 PersonalExperienceId = x.PersonalExperienceId,
 										 Content = x.Content,
 										 DateTime = x.DateTime,
 										 ImageName = x.User.Image,
@@ -121,5 +122,75 @@ namespace GraduationProject_Infrastructure.Repositories
 			return "Experience Deleted Successfully";
 		}
 
+
+		public async Task<PersonalExperiencePagedResponseDto<GetPersonalExperienceDto>> GetUnReviewedPersonalExperience(int PageIndex, int PageSize)
+		{
+			var personalExperiances = dbContext
+									 .PersonalExperiences
+									 .Include(p => p.User)
+									 .Where(w => w.IsAccepted == false && w.IsReviewed==true)
+									 .Select(x => new GetPersonalExperienceDto
+									 {
+										 UserId=x.UserId,
+										 PersonalExperienceId = x.PersonalExperienceId,
+										 Content = x.Content,
+										 DateTime = x.DateTime,
+										 ImageName = x.User.Image,
+										 UserName = x.User.UserName
+									 }).AsQueryable();
+			var result = await PaginationAsync(personalExperiances, PageIndex, PageSize);
+
+			return result;
+		}
+		public async Task<string> AcceptPersonalExperience(int PersonalExperienceId)
+		{
+			var experience = await dbContext.PersonalExperiences
+				.FirstOrDefaultAsync(x => x.PersonalExperienceId == PersonalExperienceId);
+			if (experience == null)
+			{
+				return "User or Experience not found";
+
+			}
+			experience.IsAccepted = true;
+			dbContext.PersonalExperiences.Update(experience);
+			await dbContext.SaveChangesAsync();
+			return "Experience Accepted Successfully";
+		}
+
+		public async Task<string> DeletePersonalExperienceByAdmin(int PersonalExperienceId)
+		{
+			var experience = await dbContext.PersonalExperiences
+				.FirstOrDefaultAsync(x => x.PersonalExperienceId == PersonalExperienceId);
+			if (experience == null)
+			{
+				return "User or Experience not found";
+
+			}
+			experience.IsReviewed = false;
+			experience.IsDeleted = false;
+
+			dbContext.PersonalExperiences.Remove(experience);
+
+			await dbContext.SaveChangesAsync();
+			return "Experience Deleted Successfully";
+		}
+
+		public async Task<List<GetPersonalExperienceDto>> Get_UnReviewed_Personal_Experience()
+		{
+			var personalExperiances = dbContext
+											 .PersonalExperiences
+											 .Include(p => p.User)
+											 .Where(w => w.IsAccepted == false && w.IsReviewed == true)
+											 .Select(x => new GetPersonalExperienceDto
+											 {
+												 UserId = x.UserId,
+												 PersonalExperienceId = x.PersonalExperienceId,
+												 Content = x.Content,
+												 DateTime = x.DateTime,
+												 ImageName = x.User.Image,
+												 UserName = x.User.UserName
+											 }).ToList();
+			return personalExperiances;
+		}
 	}
 }

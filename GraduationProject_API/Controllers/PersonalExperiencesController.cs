@@ -14,22 +14,34 @@ namespace GraduationProject_API.Controllers
 	public class PersonalExperiencesController : ControllerBase
 	{
 		private readonly IUnitOfWork unitOfWork;
+		private readonly IWebHostEnvironment env;
 
-		public PersonalExperiencesController(IUnitOfWork unitOfWork)
+		public PersonalExperiencesController(IUnitOfWork unitOfWork , IWebHostEnvironment env)
 		{
 			this.unitOfWork = unitOfWork;
+			this.env = env;
 		}
 		[HttpGet("Get-All-Personal-Experiences")]
 		public async Task<IActionResult> personalExperiance(int PageIndex = 1, int PageSize = 5)
 		{
+			string baseUrl = $"{Request.Scheme}://{Request.Host}";
 			var personalExperiance = await unitOfWork.personalExperianceRepositry.GetAllPersonalExperience(PageIndex, PageSize);
+			//personalExperiance.PersonalExperiances = personalExperiance.PersonalExperiances.ToList();
+
+			
+			foreach (var item in personalExperiance.PersonalExperiances)
+			{
+				string relativePath = item.ImageName.Replace(env.WebRootPath, "").Replace("\\", "/");
+				item.ImageName = $"{baseUrl}{relativePath}";
+			}
+
 			if (personalExperiance == null)
 			{
 				return NotFound("There is no Personal Experiences ");
 			}
 			return Ok(personalExperiance);
 		}
-		[Authorize]
+		//[Authorize]
 		[HttpPost("Create-your-Personal-Experience")]
 		public async Task<IActionResult> CreatePersonalExperience(AddPersonalExperianceDtos dto)
 		{
@@ -56,7 +68,7 @@ namespace GraduationProject_API.Controllers
            }
           return BadRequest(result);
 		}
-		[Authorize]
+		//[Authorize]
 		[HttpPut("Update-your-Personal-Experience/{personalExperienceId}")]
 		public async Task<IActionResult> UpdatePersonalExperiance(int personalExperienceId ,UpdatePersonalExperianceDtos dto)
 		{
@@ -83,7 +95,7 @@ namespace GraduationProject_API.Controllers
 			}
 			return BadRequest(result);
 		}
-		[Authorize]
+	//	[Authorize]
 		[HttpDelete("Delete-Experience/{personalExperienceId}")]
 		public async Task<IActionResult> DeletePersonalExperience(int personalExperienceId)
 		{
@@ -119,5 +131,105 @@ namespace GraduationProject_API.Controllers
 		    : BadRequest(result);
 		}
 
+		[HttpGet("Get-UnReviewed-Personal-Experience")]
+		public async Task<IActionResult> GetUnReviewedPersonalExperience(int PageIndex = 1, int PageSize = 5)
+		{
+
+			string baseUrl = $"{Request.Scheme}://{Request.Host}";
+			var personalExperiance = await unitOfWork.personalExperianceRepositry.GetUnReviewedPersonalExperience(PageIndex, PageSize);
+
+			foreach (var item in personalExperiance.PersonalExperiances)
+			{
+				string relativePath = item.ImageName.Replace(env.WebRootPath, "").Replace("\\", "/");
+				item.ImageName = $"{baseUrl}{relativePath}";
+			}
+			if (personalExperiance == null)
+			{
+				return NotFound("There is no UnReviewed Personal Experiences ");
+			}
+			return Ok(personalExperiance);
+		}
+
+		[HttpPut("Accept-Personal-Experiences-By-Admin/{personalExperienceId}")]
+		public async Task<IActionResult> AcceptPersonalExperienceByAdmin(int personalExperienceId)
+		{
+			if (personalExperienceId == null)
+			{
+				return BadRequest("Personal Experience not exist");
+			}
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+			//التوكن عباة عن سترينغ
+			if (string.IsNullOrEmpty(token))
+			{
+				return Unauthorized("Token is missing");
+			}
+			var userRole = ExtractClaims.ExtractRoles(token);
+			if (userRole[0] != "Admin")
+			{
+				return Unauthorized("Invalid user token");
+			}
+
+			var result = await unitOfWork.personalExperianceRepositry.AcceptPersonalExperience(personalExperienceId);
+			
+			return result == "Experience Accepted Successfully"
+			? Ok(result)
+			: BadRequest(result);
+		}
+
+
+		[HttpDelete("Delete-Personal-Experience-By-Admin/{personalExperienceId}")]
+		public async Task<IActionResult> DeletePersonalExperienceByAdmin(int personalExperienceId)
+		{
+			if (personalExperienceId == null)
+			{
+				return BadRequest("Personal Experience not exist");
+			}
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+			//التوكن عباة عن سترينغ
+			if (string.IsNullOrEmpty(token))
+			{
+				return Unauthorized("Token is missing");
+			}
+			var userRole = ExtractClaims.ExtractRoles(token);
+			if (userRole[0] != "Admin")
+			{
+				return Unauthorized("Invalid user token");
+			}
+
+			var result = await unitOfWork.personalExperianceRepositry.DeletePersonalExperienceByAdmin(personalExperienceId);
+			return result == "Experience Deleted Successfully"
+			? Ok(result)
+			: BadRequest(result);
+		}
+
+
+		[HttpGet("Get-UnReviewed-Personal-Experience-To-Reviewed")]
+		public async Task<IActionResult> Get_UnReviewed_Personal_Experience()
+		{
+
+			string baseUrl = $"{Request.Scheme}://{Request.Host}";
+			var personalExperiance = await unitOfWork.personalExperianceRepositry.Get_UnReviewed_Personal_Experience();
+
+			foreach (var item in personalExperiance)
+			{
+				string relativePath = item.ImageName.Replace(env.WebRootPath, "").Replace("\\", "/");
+				item.ImageName = $"{baseUrl}{relativePath}";
+			}
+			if (personalExperiance == null)
+			{
+				return NotFound("There is no UnReviewed Personal Experiences ");
+			}
+			return Ok(personalExperiance);
+		}
 	}
 }

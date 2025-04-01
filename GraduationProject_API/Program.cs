@@ -1,4 +1,5 @@
 
+using GraduationProject_Core.Helper;
 using GraduationProject_Core.Interfaces;
 using GraduationProject_Core.Models;
 using GraduationProject_Infrastructure.Data;
@@ -28,9 +29,14 @@ namespace GraduationProject_API
                 options.Password.RequiredUniqueChars = 0;
                 options.SignIn.RequireConfirmedAccount = true;
 
-			}).AddEntityFrameworkStores<ApplicationDbContext>()
+            }).AddEntityFrameworkStores<ApplicationDbContext>()
               .AddDefaultTokenProviders();
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+			builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
+			{
+				options.TokenLifespan = TimeSpan.FromHours(3); // صلاحية 3 ساعات
+			});
+
+			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAuthRepositry, AuthRepositry>();
             //builder.Services.AddScoped<IUserProfileRepositry, UserProfileRepositry>();
 			builder.Services.AddControllers();
@@ -45,6 +51,9 @@ namespace GraduationProject_API
                         builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
                     });
             });
+            //من شات عشان الايكسيبشين هاندلر يزبط
+			builder.Services.AddProblemDetails(); // لدعم ProblemDetails
+			builder.Services.AddExceptionHandler<GlobalExceptionHandler>(); // تسجيل المعالج
 			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -59,12 +68,14 @@ namespace GraduationProject_API
             app.UseCors("Allow");
 
             app.UseAuthorization();
-			app.UseAuthentication();
+			app.UseAuthentication();//new
 
 
 			app.MapControllers();
 			//عشان ال global exeption handler
-			app.UseExceptionHandler(opt => { });
+			app.UseExceptionHandler();
+
+			//app.UseExceptionHandler(opt => { });
 			app.Run();
         }
     }

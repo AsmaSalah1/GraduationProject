@@ -43,7 +43,7 @@ namespace GraduationProject_API.Controllers
 			return BadRequest("There is an error");
 		}
 		
-		[Authorize(Roles ="Admin")]
+	//	[Authorize(Roles ="Admin")]
 		[HttpPut("UpdateQAA/{qaaId}")]
 		public async Task<IActionResult> UpdateQAA(int qaaId, UpdateQAADto dto)
 		{
@@ -73,7 +73,7 @@ namespace GraduationProject_API.Controllers
 			return BadRequest("Error updating the QAA");
 		}
 	
-		[Authorize(Roles ="Admin")]
+		[Authorize(Roles = "Admin")]
 		[HttpDelete("DeleteQAA/{qaaId}")]
 		public async Task<IActionResult> DeleteQAA(int qaaId)
 		{
