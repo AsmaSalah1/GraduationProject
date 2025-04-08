@@ -18,6 +18,12 @@ namespace GraduationProject_Core.Interfaces
 		IPostRepositry iPostRepositry { get; }
 		ICommentRepositry iCommentRepositry { get; }
 		ILikeRepository iLikeRepository { get; }
+		ICompetitionRepository iCompetitionRepository { get; }
+
+		ICompetitionImagesRepository iCompetitionImagesRepository { get; }
+		ISponsorRepository iSponsorRepository { get; }
+		IUniversityRepositry iUniversityRepositry { get; }
+		IUniversityImagesRepository iUniversityImagesRepository { get; }
 		Task<int> SaveAsync(); //ال saveChanges
 							   //بترجعلي عدد الاسطر الي تم اضافتها او حذفها او التعديل عليها ..
 	}

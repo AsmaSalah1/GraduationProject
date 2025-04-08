@@ -15,9 +15,7 @@ namespace GraduationProject_Core.Dtos.Team
 
 		[Required]
 		public string UniversityName { get; set; }
-
 		public string? Coach { get; set; }
-
 		[Required]
 		[MinLength(1)]
 		[MaxLength(3)]
@@ -25,6 +23,12 @@ namespace GraduationProject_Core.Dtos.Team
 
 		[Required]
 		public DateTime Year { get; set; }
+
+		// [Required]
+		//   public int CompetitionId { get; set; }  // ID المسابقة
+
+		[Required]
+		public int Ranking { get; set; } // الرانك
 
 	}
 }

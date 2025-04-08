@@ -26,7 +26,7 @@ namespace GraduationProject_Infrastructure.Repositories
 			{
 				return "Entered data dose not Invalid";
 			}
-
+			var user = await dbContext.User.FindAsync(userId);
 			var P = new PersonalExperience()
 			{
 				Content = dto.Content,
@@ -36,6 +36,7 @@ namespace GraduationProject_Infrastructure.Repositories
 				IsDeleted=false,
 				DateTime=DateTime.Now
 			};
+			
 			var result = await dbContext.PersonalExperiences.AddAsync(P);
 			await dbContext.SaveChangesAsync();
 			if (result != null)
@@ -45,7 +46,6 @@ namespace GraduationProject_Infrastructure.Repositories
 			}
 			return (result.ToString());
 		}
-
 		public async Task<PersonalExperiencePagedResponseDto<GetPersonalExperienceDto>> GetAllPersonalExperience( int PageIndex, int PageSize)
 		{
 			var personalExperiances = dbContext
@@ -61,6 +61,7 @@ namespace GraduationProject_Infrastructure.Repositories
 										 ImageName = x.User.Image,
 										 UserName = x.User.UserName
 									 }).AsQueryable();
+
 			var result = await PaginationAsync(personalExperiances, PageIndex, PageSize);
 
 			return result;		
@@ -121,8 +122,6 @@ namespace GraduationProject_Infrastructure.Repositories
 			await dbContext.SaveChangesAsync();
 			return "Experience Deleted Successfully";
 		}
-
-
 		public async Task<PersonalExperiencePagedResponseDto<GetPersonalExperienceDto>> GetUnReviewedPersonalExperience(int PageIndex, int PageSize)
 		{
 			var personalExperiances = dbContext
@@ -152,6 +151,8 @@ namespace GraduationProject_Infrastructure.Repositories
 
 			}
 			experience.IsAccepted = true;
+			experience.IsReviewed = false;
+
 			dbContext.PersonalExperiences.Update(experience);
 			await dbContext.SaveChangesAsync();
 			return "Experience Accepted Successfully";

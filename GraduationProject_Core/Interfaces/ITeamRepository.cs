@@ -10,11 +10,15 @@ namespace GraduationProject_Core.Interfaces
 {
 	public interface ITeamRepository
 	{
-		 Task<bool> AddTeamAsync(CreateTeamDto dto, int userId);
+		Task<bool> AddTeamAsync(CreateTeamDto dto, int competitionId, int userId);
 		Task<IEnumerable<TeamDetailsDto>> GetAllTeamsAsync();
 		Task<bool> DeleteTeamAsync(int teamId, int userId);
-		Task<bool> UpdateTeamAsync(int teamId, UpdateTeamDto dto, int userId);
-		Task<IEnumerable<TeamDetailsDto>> GetTeamsByParticipantNameAsync(string participantName);
-
+		Task<bool> UpdateTeamAsync(int competitionId, int teamId, UpdateTeamDto dto, int userId);
+		Task<IEnumerable<TeamsDetailsDto>> GetTeamsByParticipantNameAsync(string participantName);
+		Task<IEnumerable<TeamsDetailsDto>> GetTeamsByCompetitionIdAsync(int competitionId);
+		//Task<bool> RemoveTeamFromCompetitionAsync(int teamId, int competitionId);
+		Task<bool> RemoveTeamFromCompetitionAsync(int competitionId, int teamId);
+		Task<bool> LinkTeamToCompetitionAsync(int competitionId, int teamId, LinkTeamToCompetitionDto dto);
+		Task<IEnumerable<TeamsDetailsDto>> GetTeamsByTeamNameAsync(string teamName);
 	}
 }

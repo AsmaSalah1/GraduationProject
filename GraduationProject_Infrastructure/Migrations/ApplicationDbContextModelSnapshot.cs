@@ -67,12 +67,18 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Image2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QuestionsPDF")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Time")
@@ -199,7 +205,6 @@ namespace GraduationProject_Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Posttype")
@@ -473,6 +478,11 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.Property<string>("Cv")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("No description provided.");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -480,7 +490,7 @@ namespace GraduationProject_Infrastructure.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("Gender")
+                    b.Property<int>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("GithubLink")
@@ -550,13 +560,14 @@ namespace GraduationProject_Infrastructure.Migrations
                         {
                             Id = -1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c092be01-c037-408e-8542-be3db5c29707",
+                            ConcurrencyStamp = "076649cf-0d34-4306-a9d8-086c7d0dae7f",
                             Email = "mustafaalrifaya3@gmail.com",
                             EmailConfirmed = true,
+                            Gender = 0,
                             LockoutEnabled = false,
                             NormalizedEmail = "MUSTAFAALRIFAYA3@GMAIL.COM",
                             NormalizedUserName = "MUSTAFAALRIFAYA",
-                            PasswordHash = "AQAAAAIAAYagAAAAECMj+2HInt4Ne6vZnF2XpqUdGHaLD2TmZSrL+DQ8o0Qvt0117z/EQAP59mfb8uldnw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENSW8RKk9JIuFJT269zOwHI5zdzux+9BcEsTTDMn7+O9iN+YBjwKF/LbRri61F47Kw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "mustafaalrifaya"

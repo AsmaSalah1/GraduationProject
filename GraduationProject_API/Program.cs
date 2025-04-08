@@ -6,6 +6,7 @@ using GraduationProject_Infrastructure.Data;
 using GraduationProject_Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace GraduationProject_API
 {
@@ -30,7 +31,7 @@ namespace GraduationProject_API
                 options.SignIn.RequireConfirmedAccount = true;
 
             }).AddEntityFrameworkStores<ApplicationDbContext>()
-              .AddDefaultTokenProviders();
+              .AddDefaultTokenProviders().AddUserManager<UserManager<User>>();
 			builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 			{
 				options.TokenLifespan = TimeSpan.FromHours(3); // صلاحية 3 ساعات
@@ -51,7 +52,47 @@ namespace GraduationProject_API
                         builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
                     });
             });
-            //من شات عشان الايكسيبشين هاندلر يزبط
+			///////////////////////////////////
+			// إعداد Swagger مع دعم التوكن (Bearer Token)
+			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddSwaggerGen(options =>
+			{
+				options.SwaggerDoc("v1", new OpenApiInfo
+				{
+					Title = "GraduationProject API",
+					Version = "v1",
+					Description = "API documentation for the Graduation Project system."
+				});
+
+				// إضافة تعريف التوكن (Bearer Authentication)
+				options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+				{
+					Name = "Authorization",
+					Type = SecuritySchemeType.Http,
+					Scheme = "Bearer",
+					BearerFormat = "JWT",
+					In = ParameterLocation.Header,
+					Description = "أدخل التوكن بصيغة: Bearer YOUR_ACCESS_TOKEN"
+				});
+
+				// إجبار جميع الـ Endpoints على استخدام التوكن
+				options.AddSecurityRequirement(new OpenApiSecurityRequirement
+				{
+					{
+						new OpenApiSecurityScheme
+						{
+							Reference = new OpenApiReference
+							{
+								Type = ReferenceType.SecurityScheme,
+								Id = "Bearer"
+							}
+						},
+						new List<string>()
+					}
+				});
+			});
+///////////////////////////////////////////////////
+			//من شات عشان الايكسيبشين هاندلر يزبط
 			builder.Services.AddProblemDetails(); // لدعم ProblemDetails
 			builder.Services.AddExceptionHandler<GlobalExceptionHandler>(); // تسجيل المعالج
 			var app = builder.Build();
@@ -67,8 +108,8 @@ namespace GraduationProject_API
 			app.UseHttpsRedirection();
             app.UseCors("Allow");
 
-            app.UseAuthorization();
 			app.UseAuthentication();//new
+            app.UseAuthorization();
 
 
 			app.MapControllers();

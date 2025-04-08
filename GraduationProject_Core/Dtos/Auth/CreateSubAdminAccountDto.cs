@@ -17,7 +17,9 @@ namespace GraduationProject_Core.Dtos.Auth
 		public string Email { get; set; }
 		[Required]
 		public string Password { get; set; }
-		public string? UniversityName { get; set; }
+		// تغيير من UniversityName إلى UniversityId لربط الجامعة بشكل صحيح
+		[Required]
+		public int UniversityId { get; set; }
 		[Required]
 		public Gender Gender { get; set; }
 		public IFormFile? Image { get; set; } // استقبال الصورة عند التحديث

@@ -12,5 +12,7 @@ namespace GraduationProject_Core.Dtos.Team
 		public string UniversityName { get; set; }
 		public string Coach { get; set; }
 		public List<string> Participants { get; set; }
+		public int TeamId { get; set; }
+
 	}
 }

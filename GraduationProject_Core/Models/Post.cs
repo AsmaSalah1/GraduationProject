@@ -19,7 +19,7 @@ namespace GraduationProject_Core.Models
 		public string Description { get; set; }
 		public string Title { get; set; }
 		public DateTime CreatedAt { get; set; }
-		public string Image { get; set; }
+		public string? Image { get; set; }
 		// 0 == global
 		// 1 == local
 		public PostType Posttype { get; set; }

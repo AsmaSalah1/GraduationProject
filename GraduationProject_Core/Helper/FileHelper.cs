@@ -52,11 +52,14 @@ namespace GraduationProject_Core.Helper
 		//}
 		public static void DeleteFile(string fileName, string folderName)
 		{
-			string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folderName, fileName);
-			if (File.Exists(filePath))
+			string filePath = Path.Combine("C:\\Users\\user\\Desktop\\asp\\GraduationProject_API\\GraduationProject_API\\wwwroot\\Cvs\\",  fileName);
+			Console.WriteLine(filePath);
+			filePath.Replace( "\\" , "/");
+			Console.WriteLine(filePath);
+			if (System.IO.File.Exists(filePath))
 			{
 
-				File.Delete(filePath);
+				System.IO.File.Delete(filePath);
 			}
 		}//why?? :)
 	}

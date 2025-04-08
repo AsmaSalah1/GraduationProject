@@ -19,6 +19,9 @@ namespace GraduationProject_Core.Dtos.UserProfile
 		public string? LinkedInLink { get; set; }
 		public IFormFile? Cv { get; set; }
 		public string? UniversityName { get; set; }
-	//	public string? PersonalExperienceContent { get; set; }
+		public string? OldImageUrl { get; set; } // ✅ مضاف حديثًا
+		public string? OldCvUrl { get; set; }    // ✅ مضاف حديثًا
+
+		//	public string? PersonalExperienceContent { get; set; }
 	}
 }

@@ -3,6 +3,7 @@ using GraduationProject_Core.Helper;
 using GraduationProject_Core.Interfaces;
 using GraduationProject_Core.Models;
 using GraduationProject_Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,12 @@ namespace GraduationProject_Infrastructure.Repositories
 	public class PostRepositry: IPostRepositry
 	{
 		private readonly ApplicationDbContext dbContext;
+		private readonly UserManager<User> userManager;
 
-		public PostRepositry(ApplicationDbContext dbContext)
+		public PostRepositry(ApplicationDbContext dbContext ,UserManager<User> userManager)
 		{
 			this.dbContext = dbContext;
+			this.userManager = userManager;
 		}
 
 		public async Task<string> AddPost(int userId, CreatePostDto dto,string token)
@@ -113,20 +116,32 @@ namespace GraduationProject_Infrastructure.Repositories
 
 		public async Task<string> DeletePost(int userId, int PostId)
 		{
-			var post = await dbContext
-				.Posts
-				.FirstOrDefaultAsync(x => x.UserId == userId && x.PostId == PostId);
-				
-			if (post == null)
+			var user = await userManager.FindByIdAsync(userId.ToString());
+			if (user != null)
 			{
-				return "User or post not found";
+				var roles = await userManager.GetRolesAsync(user);
 
+				// إذا بدك تطبعي أول دور
+				var firstRole = roles.FirstOrDefault();
+				Console.WriteLine(firstRole);
+				var post = await dbContext
+				.Posts
+				.FirstOrDefaultAsync(x => (x.UserId == userId || firstRole == "Admin") && x.PostId == PostId);
+
+				if (post == null)
+				{
+					return "User or post not found";
+
+				}
+				if (post.Image != null)
+					FileHelper.DeleteFile(post.Image, "Images");
+				dbContext.Posts.Remove(post);
+				await dbContext.SaveChangesAsync();
+
+				return "post Deleted Successfully";
 			}
-			FileHelper.DeleteFile(post.Image, "Images");
-			dbContext.Posts.Remove(post);
-			await dbContext.SaveChangesAsync();
-
-			return "post Deleted Successfully";
+			return "user not found";
+			
 		}
 
 		//public async Task<string> GetPostLink(int postId)
@@ -156,6 +171,69 @@ namespace GraduationProject_Infrastructure.Repositories
 				university=post.User.UserName
 			};
 			return postdto;
+		}
+		public async Task<GetPostDto> GetLatestPostBySubAdmin(List<User> subAdmins)
+		{
+			// التأكد أن قائمة الـ subAdmins غير فارغة
+			if (subAdmins == null || !subAdmins.Any())
+			{
+				return null;
+			}
+
+			// جلب آخر بوست نشره أحد الـ SubAdmins
+			var post = await dbContext.Posts
+				.Where(p => subAdmins.Select(u => u.Id).Contains(p.UserId))  // البحث عن البوستات التي نشرها SubAdmin
+				.Include(p => p.User).ThenInclude(u => u.University)  // تحميل بيانات المستخدم والجامعة
+				.OrderByDescending(p => p.CreatedAt)  // ترتيب حسب تاريخ الإنشاء بشكل تنازلي (آخر بوست)
+				.FirstOrDefaultAsync();
+
+			if (post == null)
+			{
+				return null;
+			}
+
+			return new GetPostDto
+			{
+				PostId = post.PostId,
+				Description = post.Description,
+				PosterName = post.User.UserName,
+				PostImage = post.Image,
+				ProfileImage = post.User.Image,
+				Title = post.Title,
+				university = post.User.University.Name
+			};
+		}
+
+		public async Task<PostPagedResponseDto<GetPostDto>> GetPostByUniversityName(int universityId, int PageIndex, int PageSize, Post.PostType type)
+		{
+			//var t = await dbContext.Posts.Include(c => c.User)
+			//	.Where(x => x.User.UniversityId == universityId).ToListAsync();
+
+			var posts = dbContext.Posts
+						.Include(u => u.User).ThenInclude(w => w.University)
+						.Include(c => c.Comments)
+						.Where(q => q.Posttype == type && q.User.UniversityId == universityId)
+						.Select(x => new GetPostDto
+						{
+							PostId = x.PostId,
+							Description = x.Description,
+							PosterName = x.User.UserName,
+							PostImage = x.Image,
+							ProfileImage = x.User.Image,
+							Title = x.Title,
+							university = x.User.University.Name,
+							TotalLikes = x.Likes.Count(),
+							TotalComments = x.Comments.Count()
+						}).AsNoTracking()
+						.AsQueryable();
+
+			if (posts == null)
+			{
+				return null;
+			}
+
+			var result = await PaginationAsync(posts, PageIndex, PageSize);
+			return result;
 		}
 	}
 }

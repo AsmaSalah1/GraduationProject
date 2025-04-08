@@ -12,6 +12,6 @@ namespace GraduationProject_Core.Models
 		[Key]
 		public int ParticipantId { get; set; }
 		public string ParticipantName { get; set; }
-		public ICollection<TeamParticipant> TeamsParticipant { get; set; }=new HashSet<TeamParticipant>();
+		public ICollection<TeamParticipant> TeamsParticipant { get; set; } = new HashSet<TeamParticipant>();
 	}
 }

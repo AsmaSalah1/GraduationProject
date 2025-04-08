@@ -297,22 +297,27 @@ namespace GraduationProject_Infrastructure.Repositories
 		public async Task<string> ContactUsAsync(ContactUsDto dto,int UserId)
 		{
 			// 1. التحقق من صلاحية البريد الإلكتروني (البريد الإلكتروني صالح إذا كان له تنسيق صحيح)
-			var isValidEmail = new EmailAddressAttribute().IsValid(dto.Email);
-			if (!isValidEmail)
-			{
-				return "Invalid email format"; // إرجاع رسالة في حال كان التنسيق غير صحيح
-			}
+			//var isValidEmail = new EmailAddressAttribute().IsValid(dto.Email);
+			//if (!isValidEmail)
+			//{
+			//	return "Invalid email format"; // إرجاع رسالة في حال كان التنسيق غير صحيح
+			//}
 			var user = await userManager.FindByIdAsync(UserId.ToString());
 			var email = new Email()
 			{
-				Sender=user.Email,
-				SenderPassword=user.PasswordHash,
+				Sender= "contactuspcpc@gmail.com",
+				//hxia eafk nvrj lvby
+				SenderPassword = "hxia eafk nvrj lvby",
 				Subject = "PCPC Website Contact Us",
 				Recivers = "mustafaalrifaya3@gmail.com",
-				Body = $"{dto.Message}",
+				Body = $"You've received a new message from {dto.Name} " +
+				$"with Email : {user.Email} and Message : {dto.Message}",
 			};
-			EmailHealper.SendEmail2(email);
+			var t= EmailHealper.SendEmail2(email);
+			if(t== "Email sent successfully.") { 
 			return "Email sent successfully.";
+			}
+			return "Failed to send email";
 		}
 
 	}

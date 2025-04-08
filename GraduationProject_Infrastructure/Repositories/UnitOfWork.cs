@@ -37,6 +37,13 @@ namespace GraduationProject_Infrastructure.Repositories
 		public ICommentRepositry iCommentRepositry { get; }
 
 		public ILikeRepository iLikeRepository { get; }
+		public ICompetitionRepository iCompetitionRepository { get; }
+		public ICompetitionImagesRepository iCompetitionImagesRepository { get; }
+		public ISponsorRepository iSponsorRepository { get; }
+
+		public IUniversityRepositry iUniversityRepositry { get; }
+
+		public IUniversityImagesRepository iUniversityImagesRepository { get; }
 
 		public async Task<int> SaveAsync()
 	=> await dbContext.SaveChangesAsync();
@@ -68,9 +75,14 @@ namespace GraduationProject_Infrastructure.Repositories
 			teamRepository = new TeamRepositry(dbContext);
 			personalExperianceRepositry = new PersonalExperianceRepositry(dbContext);
 			iparticipantRepository =new ParticipantRepository(dbContext);
-			iPostRepositry =new PostRepositry(dbContext);
+			iPostRepositry =new PostRepositry(dbContext,userManager);
 			iCommentRepositry = new CommentRepositry(dbContext);
 			iLikeRepository = new LikeRepository(dbContext);
+			iCompetitionRepository = new CompetitionRepository(dbContext);
+			iCompetitionImagesRepository = new CompetitionImagesRepository(dbContext);
+			iSponsorRepository = new SponsorRepository(dbContext);
+			iUniversityRepositry = new UniversityRepositry(dbContext);
+			iUniversityImagesRepository = new UniversityImagesRepository(dbContext);
 		}
 	}
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GraduationProject_Infrastructure.Data
@@ -68,6 +69,9 @@ namespace GraduationProject_Infrastructure.Data
 			builder.Entity<UniversityCompetition>().HasKey(r => new { r.UniversityId, r.CompetitionID });
 			builder.Entity<SponsorComptiition>().HasKey(r => new { r.SponsorID, r.CompetitionID });
 			builder.Entity<TeamCompetition>().HasKey(r => new { r.TeamId, r.CompetitionID });
+			builder.Entity<User>()
+	        .Property(u => u.Description)
+	         .HasDefaultValue("No description provided.");
 			//builder.Entity<User>(u =>
 			//u.Property(i => i.Image).HasDefaultValue("C:\\Users\\user\\Desktop\\Man defult image.png"));
 			//builder.Entity<User>()
@@ -77,7 +81,12 @@ namespace GraduationProject_Infrastructure.Data
 			builder.Entity<User>().HasOne(u => u.PersonalExperience).WithOne(p => p.User)
 		   .HasForeignKey<PersonalExperience>(p => p.UserId)
 		  .OnDelete(DeleteBehavior.Cascade); // عند حذف المستخدم، يتم حذف تجربته الشخصية أيضًا
-          
+			builder.Entity<Competition>()
+	   .Property(c => c.Location)
+	   .HasConversion(
+		   v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),  // ✅ تخزين `List<string>` كـ JSON
+		   v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null) ?? new List<string>() // ✅ استرجاعها كـ `List<string>`
+	   );
 		}
 		public DbSet<User> User { get; set; }
 		public DbSet<Team> Teams { get; set; }

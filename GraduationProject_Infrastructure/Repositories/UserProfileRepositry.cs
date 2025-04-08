@@ -36,10 +36,9 @@ namespace GraduationProject_Infrastructure.Repositories
 			if (user == null) {
 				throw new KeyNotFoundException("User not found");
 			}
-
-			return new ViewProfileDtos()
+			var p = new ViewProfileDtos()
 			{
-				UserId=user.Id,
+				UserId = user.Id,
 				UserName = user.UserName,
 				Email = user.Email,
 				Gender = user.Gender,
@@ -48,8 +47,21 @@ namespace GraduationProject_Infrastructure.Repositories
 				Image = user.Image,
 				LinkedInLink = user.LinkedInLink,
 				UniversityName = user.University?.Name, // جلب اسم الجامعة
-				PersonalExperienceContent = user.PersonalExperience?.Content // جلب وصف التجربة الشخصية
+				
+				//PersonalExperienceContent = user.PersonalExperience?.Content // جلب وصف التجربة الشخصية
 			};
+			if (user.PersonalExperience != null)
+			{
+				p.IsReviewed = user.PersonalExperience.IsReviewed;
+
+				if (!string.IsNullOrEmpty(user.PersonalExperience.Content) && user.PersonalExperience.IsAccepted == true)
+				{
+					p.PersonalExperienceContent = user.PersonalExperience.Content;
+					p.PersonalExperienceId = user.PersonalExperience.PersonalExperienceId;
+				}
+			}
+
+			return p;
 		}
 		public async Task<bool> UpdateUserProfileAsync(int id, UpdateProfileDtos dto)
 		{
@@ -57,14 +69,24 @@ namespace GraduationProject_Infrastructure.Repositories
 				.Include(u => u.University)
 				.Include(p => p.PersonalExperience)
 				.FirstOrDefaultAsync(u => u.Id == id);
-
 			if (user == null)
 			{
 				throw new KeyNotFoundException("User not found");
 			}
+			if (dto.UserName == null)
+			{
 
-			user.UserName = dto.UserName; // يمكن أن تكون null
-			user.Gender = dto.Gender.Value; // يمكن أن تكون null
+			user.UserName = user.UserName; // يمكن أن تكون null
+			}
+			else
+			{
+				user.UserName = dto.UserName; // يمكن أن تكون null
+
+			}
+			if (dto.Gender.HasValue)
+			{
+				user.Gender = dto.Gender.Value;
+			}
 			user.GithubLink = dto.GithubLink; // يمكن أن تكون null
 			user.LinkedInLink = dto.LinkedInLink; // يمكن أن تكون null
 
@@ -78,6 +100,7 @@ namespace GraduationProject_Infrastructure.Repositories
 			//	user.PersonalExperience.Content = dto.PersonalExperienceContent; // يمكن أن تكون null
 			//}
 
+			// ✅ التعامل مع ملف الـ CV
 			if (dto.Cv != null)
 			{
 				if (!string.IsNullOrEmpty(user.Cv))
@@ -87,19 +110,30 @@ namespace GraduationProject_Infrastructure.Repositories
 				string newCvFileName = FileHelper.UplodeFile(dto.Cv, "Cvs");
 				user.Cv = newCvFileName;
 			}
+			else if (!string.IsNullOrEmpty(dto.OldCvUrl))
+			{
+				user.Cv = dto.OldCvUrl;
+			}
 			else
 			{
 				user.Cv = null;
 			}
 
+			// ✅ التعامل مع الصورة
+			//اذا تم ارسال صورة جديدة يتم حذف القديمة
 			if (dto.Image != null)
 			{
 				if (!string.IsNullOrEmpty(user.Image))
 				{
 					FileHelper.DeleteFile(user.Image, "Images");
 				}
+				//حفظ الصورة الجديدة
 				string newFileName = FileHelper.UplodeFile(dto.Image, "Images");
 				user.Image = newFileName;
+			}
+			else if (!string.IsNullOrEmpty(dto.OldImageUrl))
+			{
+				user.Image = dto.OldImageUrl;
 			}
 			else
 			{
@@ -107,6 +141,8 @@ namespace GraduationProject_Infrastructure.Repositories
 					? "/default image/Man default image.png"
 					: "/default image/women default image.png";
 			}
+
+
 
 			dbContext.Users.Update(user);
 			await dbContext.SaveChangesAsync();
@@ -124,6 +160,25 @@ namespace GraduationProject_Infrastructure.Repositories
 				.ToListAsync();
 			return users;
 		}
+		public async Task<IEnumerable<User>> GetSubAdminsByUniversityIdAsync(int universityId)
+		{
+			// استرجاع المستخدمين الذين لديهم UniversityId مطابق
+			var usersInUniversity = dbContext.Users.Where(u => u.UniversityId == universityId).ToList();
+
+			// تصفية المستخدمين بناءً على دور "SubAdmin"
+			var subAdmins = new List<User>();
+			foreach (var user in usersInUniversity)
+			{
+				if (await userManager.IsInRoleAsync(user, "SuperAdmin"))
+				{
+					subAdmins.Add(user);
+				}
+			}
+
+			return subAdmins;
+		}
+
+
 		//public async Task<bool> UpdateUserProfileAsync(int id, UpdateProfileDtos dto)
 		//{
 		//	var user =await dbContext.Users

@@ -12,20 +12,24 @@ namespace GraduationProject_Core.Models
 		[Key]
 		public int CompetitionId { get; set; }
 		public string Name { get; set; }
-	//	public string Type { get; set; }
+		//	public string Type { get; set; }
 		public CompetitionType Type { get; set; }
-		public string Location { get; set; }
+		public List<string> Location { get; set; } = new List<string>();
 		public DateTime? Time { get; set; }
 		public string Description { get; set; }
 		public string? Image { get; set; }
+		public string? Image2 { get; set; }
+		public string? QuestionsPDF { get; set; }
 		public ICollection<UniversityCompetition> UniversityCompetitions { get; set; } = new HashSet<UniversityCompetition>();
-		public ICollection<SponsorComptiition>? SponsorCompetition { get; set; }=new HashSet<SponsorComptiition>();
-		public ICollection<TeamCompetition> TeamCompetitions { get; set; }=new HashSet<TeamCompetition>();
-		public ICollection<CompetitionImages> CompetitionImages { get; set; }=new HashSet<CompetitionImages>();
+		public ICollection<SponsorComptiition>? SponsorCompetition { get; set; } = new HashSet<SponsorComptiition>();
+		public ICollection<TeamCompetition> TeamCompetitions { get; set; } = new HashSet<TeamCompetition>();
+		public ICollection<CompetitionImages> CompetitionImages { get; set; } = new HashSet<CompetitionImages>();
 		public enum CompetitionType
 		{
-			Global,
-			Local
+			Local,
+			PCPC,
+			Icpc,
+			Acpc
 		}
 	}
 

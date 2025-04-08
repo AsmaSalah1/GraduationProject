@@ -221,7 +221,8 @@ namespace GraduationProject_API.Controllers
 				UserName = registerDtos.Name,
 				Email = registerDtos.Email,
 				Gender = registerDtos.Gender,
-				EmailConfirmed=true
+				EmailConfirmed=true,
+				UniversityId=registerDtos.UniversityId
 			};
 			// تعيين صورة افتراضية بناءً على الجنس
 			if (registerDtos.Image == null) // فقط إذا لم يوفر المستخدم صورة
@@ -313,11 +314,7 @@ namespace GraduationProject_API.Controllers
 			{
 				return BadRequest(ModelState);
 			}
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
-
+		
 			var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 			//التوكن عباة عن سترينغ
 			if (string.IsNullOrEmpty(token))

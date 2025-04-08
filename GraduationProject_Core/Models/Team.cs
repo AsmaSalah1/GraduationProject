@@ -15,7 +15,7 @@ namespace GraduationProject_Core.Models
 		public string UniversityName { get; set; }
 		public string? Coach { get; set; }
 		// العلاقات
-		public ICollection<TeamCompetition> TeamsCompetitions { get; set; }=new HashSet<TeamCompetition>();
-		public ICollection<TeamParticipant> TeamsParticipant { get; set; }=new HashSet<TeamParticipant>();
+		public ICollection<TeamCompetition> TeamsCompetitions { get; set; } = new HashSet<TeamCompetition>();
+		public ICollection<TeamParticipant> TeamsParticipant { get; set; } = new HashSet<TeamParticipant>();
 	}
 }

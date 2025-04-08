@@ -33,7 +33,7 @@ namespace GraduationProject_Core.Helper
 				Console.WriteLine("Failed to send email: " + ex.Message);
 			}
 		}
-		public static void SendEmail2(Email email)
+		public static string SendEmail2(Email email)
 		{
 			try
 			{
@@ -44,11 +44,13 @@ namespace GraduationProject_Core.Helper
 				};
 
 				client.Send(email.Sender, email.Recivers, email.Subject, email.Body);
+				
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine("Failed to send email: " + ex.Message);
+			 return "Failed to send email: " + ex.Message;
 			}
+			return "Email sent successfully.";
 		}
 		//public async Task SendEmailAsync(string name, string userEmail, string message)
 		//{

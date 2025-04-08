@@ -18,9 +18,42 @@ namespace GraduationProject_API.Controllers
 		{
 			this.unitOfWork = unitOfWork;
 		}
-		[Authorize(Roles ="Admin")]
-		[HttpPost("Add-Team")]
-		public async Task<IActionResult> AddTeam([FromBody] CreateTeamDto dto)
+
+		[HttpPost("Add-Team/{competitionId}")]
+		public async Task<IActionResult> AddTeam(int competitionId, [FromBody] CreateTeamDto dto)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+			if (string.IsNullOrEmpty(token))
+			{
+				return Unauthorized("Token is missing");
+			}
+
+			var userId = ExtractClaims.ExtractUserId(token);
+			if (!userId.HasValue)
+			{
+				return Unauthorized("Invalid user token");
+			}
+
+			// هنا استقبلنا الـ competitionId كـ parameter في الـ URL
+			// الـ competitionId سيأتي مع الـ URL، لذا لا تحتاج لإضافته في body
+
+			var result = await unitOfWork.teamRepository.AddTeamAsync(dto, competitionId, userId.Value);  // تمرير الـ competitionId هنا
+			if (result)
+			{
+				return Ok(new { Message = "Team added successfully" });
+			}
+
+			return BadRequest("Error adding team");
+		}
+
+
+		[HttpGet("GetAllTeamNames")]
+		public async Task<IActionResult> GetAllTeamNames()
 		{
 			if (!ModelState.IsValid)
 			{
@@ -37,15 +70,58 @@ namespace GraduationProject_API.Controllers
 			{
 				return Unauthorized("Invalid user token");
 			}
-			// if (dto.Participants == null || dto.Participants.Count < 1 || dto.Participants.Count > 3)
-			//   return BadRequest("Participants must be between 1 and 3.");
+			var teams = await unitOfWork.teamRepository.GetAllTeamsAsync();
+			if (teams == null || !teams.Any())
+				return NotFound("No teams found.");
 
-			var result = await unitOfWork.teamRepository.AddTeamAsync(dto, userId.Value);
-			if (result)
-				return Ok(new { Message = "Team added successfully" });
-
-			return BadRequest("Error adding team");
+			var teamNames = teams.Select(t => new { TeamId = t.TeamId, TeamName = t.TeamName }).ToList();
+			return Ok(teamNames);
 		}
+
+
+		[HttpGet("GetTeamsByCompetition/{competitionId}")]
+		public async Task<IActionResult> GetTeamsByCompetition(int competitionId)
+		{
+			var teams = await unitOfWork.teamRepository.GetTeamsByCompetitionIdAsync(competitionId);
+			if (teams == null || !teams.Any())
+			{
+				return NotFound("No teams found for this competition.");
+			}
+			return Ok(teams);
+		}
+
+
+		[HttpPost("Link-Team-To-Competition/{competitionId}/{teamId}")]
+		public async Task<IActionResult> LinkTeamToCompetitio(int competitionId, int teamId, [FromBody] LinkTeamToCompetitionDto dto)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState); // تحقق من صحة البيانات المدخلة
+			}
+
+			var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+			if (string.IsNullOrEmpty(token))
+			{
+				return Unauthorized("Token is missing");
+			}
+
+			var userId = ExtractClaims.ExtractUserId(token);
+			if (!userId.HasValue)
+			{
+				return Unauthorized("Invalid user token");
+			}
+
+			// ربط الفريق مع المسابقة
+			var result = await unitOfWork.teamRepository.LinkTeamToCompetitionAsync(competitionId, teamId, dto);
+
+			if (!result)
+			{
+				return BadRequest("Error linking team to competition. Please check if the team or competition exists.");
+			}
+
+			return Ok("Team successfully linked to competition.");
+		}
+
 
 		// عرض جميع الفرق
 		[HttpGet("GetAllTeams")]
@@ -62,17 +138,25 @@ namespace GraduationProject_API.Controllers
 		public async Task<IActionResult> GetTeamByName(string teamName)
 		{
 			var teams = await unitOfWork.teamRepository.GetAllTeamsAsync();
+
 			var matchingTeams = teams
-			.Where(t => t.TeamName.Equals(teamName, StringComparison.OrdinalIgnoreCase))
-			.ToList();
+				.Where(t => t.TeamName.StartsWith(teamName, StringComparison.OrdinalIgnoreCase)) // البحث بأول حرفين أو أكثر
+				.Select(t => new
+				{
+					TeamId = t.TeamId,
+					TeamName = t.TeamName
+				})
+				.ToList();
 
 			if (!matchingTeams.Any())
 			{
 				return NotFound("No teams found with the given name.");
 			}
 
-			return Ok(matchingTeams); ;
+			return Ok(matchingTeams); // إرجاع الفرق التي تطابق الاسم المدخل
 		}
+
+
 
 		[HttpDelete("Delete-Team/{teamId}")]
 		public async Task<IActionResult> DeleteTeamById([FromRoute] int teamId)
@@ -102,30 +186,33 @@ namespace GraduationProject_API.Controllers
 		}
 
 		// تحديث الفريق
-		[HttpPut("Update-Team/{teamId}")]
-		public async Task<IActionResult> UpdateTeam(int teamId, [FromBody] UpdateTeamDto dto)
+		[HttpPut("Competition/{competitionId}/Update-Team/{teamId}")]
+		public async Task<IActionResult> UpdateTeam(int competitionId, int teamId, [FromBody] UpdateTeamDto dto)
 		{
 			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
+
 			var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-			//التوكن عباة عن سترينغ
 			if (string.IsNullOrEmpty(token))
 			{
 				return Unauthorized("Token is missing");
 			}
+
 			var userId = ExtractClaims.ExtractUserId(token);
 			if (!userId.HasValue)
 			{
 				return Unauthorized("Invalid user token");
 			}
 
-			var result = await unitOfWork.teamRepository.UpdateTeamAsync(teamId, dto, userId.Value);
+			var result = await unitOfWork.teamRepository.UpdateTeamAsync(competitionId, teamId, dto, userId.Value);
 			if (result)
 				return Ok("Team updated successfully");
-			return BadRequest("Error updating team");
+
+			return BadRequest("Error updating team");
 		}
+
 
 		[HttpGet("Get-Teams-By-ParticipantName/{participantName}")]
 		public async Task<IActionResult> GetTeamsByParticipantName(string participantName)
@@ -136,5 +223,37 @@ namespace GraduationProject_API.Controllers
 
 			return Ok(teams);
 		}
+
+		[HttpDelete("Competition/{competitionId}/Remove-Team-From-Competition/{teamId}")]
+		public async Task<IActionResult> RemoveTeamFromCompetition(int competitionId, int teamId)
+		{
+			var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+			if (string.IsNullOrEmpty(token))
+			{
+				return Unauthorized("Token is missing");
+			}
+
+			var userId = ExtractClaims.ExtractUserId(token);
+			if (!userId.HasValue)
+			{
+				return Unauthorized("Invalid user token");
+			}
+
+			var result = await unitOfWork.teamRepository.RemoveTeamFromCompetitionAsync(competitionId, teamId);
+			if (result)
+				return Ok("Team successfully removed from competition.");
+
+			return BadRequest("Error removing team from competition.");
+		}
+		[HttpGet("Get-Teams-By-TeamName/{teamName}")]
+		public async Task<IActionResult> GetTeamsByTeamName(string teamName)
+		{
+			var teams = await unitOfWork.teamRepository.GetTeamsByTeamNameAsync(teamName);
+			if (teams == null || !teams.Any())
+				return NotFound($"No teams found for the team name: {teamName}");
+
+			return Ok(teams);
+		}
+
 	}
-	}
+}

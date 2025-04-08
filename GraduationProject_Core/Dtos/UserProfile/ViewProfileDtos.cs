@@ -9,6 +9,8 @@ namespace GraduationProject_Core.Dtos.UserProfile
 {
 	public class ViewProfileDtos
 	{
+		public int PersonalExperienceId { get; set; }
+
 		public int UserId { get; set; }
 		public string UserName { get; set; }
 		public string Email { get; set; }
@@ -19,6 +21,8 @@ namespace GraduationProject_Core.Dtos.UserProfile
 		public string? Cv { get; set; }
 		public string? UniversityName { get; set; }
 		public string? PersonalExperienceContent { get; set; }
+		public bool IsReviewed { get; set; }
+
 
 	}
 }

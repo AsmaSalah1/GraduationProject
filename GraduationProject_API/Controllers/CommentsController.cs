@@ -12,9 +12,12 @@ namespace GraduationProject_API.Controllers
 	{
 		private readonly IUnitOfWork unitOfWork;
 
-		public CommentsController(IUnitOfWork unitOfWork)
+		public IWebHostEnvironment Env { get; }
+
+		public CommentsController(IUnitOfWork unitOfWork, IWebHostEnvironment env)
 		{
 			this.unitOfWork = unitOfWork;
+			Env = env;
 		}
 		[HttpPost("Add-Comment/{postId}")]
 		public async Task<IActionResult> AddComment(int postId , AddCommentDto dto)
@@ -45,6 +48,8 @@ namespace GraduationProject_API.Controllers
 		[HttpGet("Get-comments/{postId}")]
 		public async Task<IActionResult> GetComments(int postId)
 		{
+			var baseUrl = $"{Request.Scheme}://{Request.Host}";
+
 			// استدعاء الدالة لاسترجاع التعليقات
 			var comments = await unitOfWork.iCommentRepositry.GetCommentsByPostId(postId);
 
@@ -53,7 +58,18 @@ namespace GraduationProject_API.Controllers
 			{
 				return NotFound("No comments found for this post.");
 			}
+			foreach (var item in comments)
+			{
+			
+				string relativePath1 = item.UserImage.Replace(Env.WebRootPath, "").Replace("\\", "/");
+				item.UserImage = $"{baseUrl}{relativePath1}";
 
+				
+			//	item.PostImage = $"{baseUrl}/Images/{item.PostImage}";
+
+
+
+			}
 			return Ok(comments);
 		}
 	
