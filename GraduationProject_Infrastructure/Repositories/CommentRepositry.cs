@@ -59,6 +59,7 @@ namespace GraduationProject_Infrastructure.Repositories
 				.Select(x => new GetCommentDto
 				{
 					CommentId=x.Id,
+					UserId=x.UserId,
 					UserName=x.User.UserName,
 					CreatedAt = x.CreatedAt,
 					CommentContent = x.Content,

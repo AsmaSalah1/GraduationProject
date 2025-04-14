@@ -20,5 +20,7 @@ namespace GraduationProject_Core.Interfaces
 		Task<bool> RemoveTeamFromCompetitionAsync(int competitionId, int teamId);
 		Task<bool> LinkTeamToCompetitionAsync(int competitionId, int teamId, LinkTeamToCompetitionDto dto);
 		Task<IEnumerable<TeamsDetailsDto>> GetTeamsByTeamNameAsync(string teamName);
+		Task<string> AddTeamAsmaa(CreateTeamDto dto, int competitionId, int userId);
+
 	}
 }

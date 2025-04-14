@@ -39,7 +39,7 @@ namespace GraduationProject_Infrastructure.Repositories
             string logoFileName = null;
             if (dto.Logo != null)
             {
-                logoFileName = FileHelper.UplodeFile(dto.Logo, "Images"); // رفع الشعار
+                logoFileName =   FileHelper.UplodeFile(dto.Logo, "Images"); // رفع الشعار
             }
 
             // إضافة الـ Sponsor إلى قاعدة البيانات

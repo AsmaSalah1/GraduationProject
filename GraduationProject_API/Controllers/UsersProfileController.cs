@@ -90,7 +90,7 @@ namespace GraduationProject_API.Controllers
 				return Unauthorized("Invalid user token");
 			}
 
-			var result = await unitOfWork.userProfileRepositry.UpdateUserProfileAsync(userId.Value, dto);
+			var result = await unitOfWork.userProfileRepositry.UpdateUserProfileAsync(userId.Value, dto,token);
 			if (result)
 			{
 			return Ok("User Information Updated Successfully");

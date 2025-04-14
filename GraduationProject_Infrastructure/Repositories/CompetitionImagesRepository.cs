@@ -32,7 +32,7 @@ namespace GraduationProject_Infrastructure.Repositories
             foreach (var image in dto.Images)
             {
                 // استخدام دالة رفع الصورة
-                var imageName = FileHelper.UplodeFile(image, "Images"); // رفع الصورة
+                var imageName =  FileHelper.UplodeFile(image, "Images"); // رفع الصورة
                 if (string.IsNullOrEmpty(imageName))
                     continue; // إذا كانت الصورة غير قابلة للرفع، نتجاوزها
 

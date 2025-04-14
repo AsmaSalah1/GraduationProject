@@ -16,6 +16,7 @@ namespace GraduationProject_Core.Dtos.UserProfile
 		public string Email { get; set; }
 		public string? Image { get; set; }
 		public Gender? Gender { get; set; }
+		public string Description { get; set; }
 		public string? GithubLink { get; set; }
 		public string? LinkedInLink { get; set; }
 		public string? Cv { get; set; }

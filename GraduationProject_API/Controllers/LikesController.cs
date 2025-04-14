@@ -53,6 +53,21 @@ namespace GraduationProject_API.Controllers
 			}
 		}
 
-	
+		[HttpGet("Get-Likes/{postId}")]
+		public async Task<IActionResult> GetLikes([FromRoute]int postId)
+		{
+
+			// استدعاء الدالة لاسترجاع التعليقات
+			var likes = await unitOfWork.iLikeRepository.GetLikesByPostId(postId);
+
+			// التحقق من وجود تعليقات
+			if (likes == null || !likes.Any())
+			{
+				return NotFound("No Likes found for this post.");
+			}
+			
+			return Ok(likes);
+		}
+
 	}
 }

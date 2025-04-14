@@ -161,7 +161,7 @@ namespace GraduationProject_API.Controllers
 			}
 
 			// إعادة توجيه المستخدم إلى صفحة إعادة تعيين كلمة المرور في الواجهة الأمامية
-			return Redirect($"https://yourfrontend.com/reset-password?token={token}&email={email}");
+			return Redirect($"http://localhost:5173/resetpassword={token}&email={email}");
 		}
 
 		//[Authorize]

@@ -1,4 +1,6 @@
-﻿using GraduationProject_Core.Interfaces;
+﻿using GraduationProject_Core.Dtos.Comment;
+using GraduationProject_Core.Dtos.Likes;
+using GraduationProject_Core.Interfaces;
 using GraduationProject_Core.Models;
 using GraduationProject_Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +42,23 @@ namespace GraduationProject_Infrastructure.Repositories
 			}
 			
 		}
+		public async Task<IEnumerable<GetLikesDto>> GetLikesByPostId(int postId)
+		{
+			var postExists = await dbContext.Posts.AnyAsync(p => p.PostId == postId);
+			if (!postExists)
+			{
+				return Enumerable.Empty<GetLikesDto>();
+			}
+			return await dbContext.Likes
+				.Include(u => u.User)
+				.Where(p => p.PostId == postId)
+				.Select(x => new GetLikesDto
+				{
+					LikeId = x.Id,
+					UserId=x.UserId,
+					UserName = x.User.UserName,
+				}).ToListAsync();
 
+		}
 	}
 }

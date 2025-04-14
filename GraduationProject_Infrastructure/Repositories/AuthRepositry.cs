@@ -86,7 +86,7 @@ namespace GraduationProject_Infrastructure.Repositories
 			{
 				return "Invalid user name or password";
 			}
-			var result = await signInManager.PasswordSignInAsync(user, password, false, false);
+			var result = await signInManager.PasswordSignInAsync(user, password, true, false);
 			if (!result.Succeeded)
 			{
 				return null;
@@ -112,7 +112,7 @@ namespace GraduationProject_Infrastructure.Repositories
 			//var resetPasswordLink = $"https://localhost:7024/Auths/reset-password?token={token}&email={Useremail}";
 			var encodedToken = WebUtility.UrlEncode(token);
 			var encodedEmail = WebUtility.UrlEncode(user.Email);
-			var resetPasswordLink = $"https://yourfrontend.com/reset-password?token={token}&email={user.Email}";
+			var resetPasswordLink = $"http://localhost:5173/resetpassword?token={encodedToken}&email={encodedEmail}";
 			var email = new Email()
 			{
 				Subject = "Reset Password",
@@ -141,6 +141,13 @@ namespace GraduationProject_Infrastructure.Repositories
 				// 🔴 التحقق من الخطأ المتعلق بانتهاء صلاحية التوكن
 				if (result.Errors.Any(e => e.Code == "InvalidToken"))
 				{
+					////فرز الأخطاء بشكل أدق: في ResetPassword الأفضل ترجّع الأخطاء بتفاصيل أكثر من IdentityResult:
+					//foreach (var error in result.Errors)
+					//{
+					//	// سجل أو رجع الرسائل للمساعدة في الديباغ
+					//	Console.WriteLine(error.Description);
+					//}
+
 					return "The reset password link has expired or is invalid. Please request a new one.";
 				}
 			}
@@ -236,7 +243,7 @@ namespace GraduationProject_Infrastructure.Repositories
 
 		public async Task<List<SubAdminDtos>> GetAllSubAdminAsync()
 		{
-			var users = await dbContext.Users.AsNoTracking().ToListAsync();
+			var users = await dbContext.Users.Include(u=>u.University).AsNoTracking().ToListAsync();
 			// تجهيز الـ Dtos التي ستحتوي على اسم المستخدم واسم الرول
 			var subAdminDtos = new List<SubAdminDtos>();
 
@@ -250,6 +257,7 @@ namespace GraduationProject_Infrastructure.Repositories
 					Role = role.FirstOrDefault(),  // اسم الرول (الافتراضي هو SubAdmin)
 					Email = user.Email,
 					Gender = user.Gender,
+					UniversityName=user.University?.Name,
 					Image = user.Image ?? "/default image/Man default image.png"
 				};
 				subAdminDtos.Add(subAdminDto);

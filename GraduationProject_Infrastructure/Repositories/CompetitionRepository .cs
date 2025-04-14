@@ -31,7 +31,7 @@ namespace GraduationProject_Infrastructure.Repositories
 
 			if (dto.Image != null)
 			{
-				newImageName = FileHelper.UplodeFile(dto.Image, "Images");
+				newImageName =  FileHelper.UplodeFile(dto.Image, "Images");
 			}
 
 			if (dto.Image2 != null)

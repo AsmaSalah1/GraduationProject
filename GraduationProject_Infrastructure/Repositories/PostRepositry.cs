@@ -43,7 +43,7 @@ namespace GraduationProject_Infrastructure.Repositories
 			// إذا كانت الصورة موجودة
 			if (dto.Image != null)
 			{
-				string newFileName = FileHelper.UplodeFile(dto.Image, "Images");
+				string newFileName =FileHelper.UplodeFile(dto.Image, "Images");
 				post.Image = newFileName;
 			}
 			if (role[0] == "Admin")
@@ -85,17 +85,19 @@ namespace GraduationProject_Infrastructure.Repositories
 					PostImage = x.Image,
 					ProfileImage = x.User.Image,
 					Title = x.Title,
+					CreatedAt=x.CreatedAt,
 					university = x.User.University.Name,
 					TotalLikes=x.Likes.Count(),
 					TotalComments = x.Comments.Count()
-				}).AsNoTracking()
+				}).OrderByDescending(x => x.CreatedAt)
+				.AsNoTracking()
 				.AsQueryable();	
 
 			if(posts == null)
 			{
 				return null;
 			}
-		
+
 			var result=await PaginationAsync(posts, PageIndex, PageSize);
 			return result;
 		}

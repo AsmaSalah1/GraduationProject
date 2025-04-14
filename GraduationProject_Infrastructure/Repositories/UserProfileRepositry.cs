@@ -45,6 +45,7 @@ namespace GraduationProject_Infrastructure.Repositories
 				Cv = user.Cv,
 				GithubLink = user.GithubLink,
 				Image = user.Image,
+				Description=user.Description,
 				LinkedInLink = user.LinkedInLink,
 				UniversityName = user.University?.Name, // جلب اسم الجامعة
 				
@@ -63,7 +64,7 @@ namespace GraduationProject_Infrastructure.Repositories
 
 			return p;
 		}
-		public async Task<bool> UpdateUserProfileAsync(int id, UpdateProfileDtos dto)
+		public async Task<bool> UpdateUserProfileAsync(int id, UpdateProfileDtos dto,string token)
 		{
 			var user = await dbContext.Users
 				.Include(u => u.University)
@@ -73,6 +74,24 @@ namespace GraduationProject_Infrastructure.Repositories
 			{
 				throw new KeyNotFoundException("User not found");
 			}
+			//var userNameinDb = await dbContext.User.FindAsync(dto.UserName);
+			//if (userNameinDb != null) {
+			//	return false;
+			//}
+			if (!string.IsNullOrWhiteSpace(dto.UserName))
+			{
+				// نبحث عن مستخدم آخر غير المستخدم الحالي يملك نفس الاسم
+				var existingUser = await dbContext.Users
+					.FirstOrDefaultAsync(u => u.UserName == dto.UserName && u.Id != id);
+
+				if (existingUser != null)
+				{
+					throw new InvalidOperationException("اسم المستخدم موجود مسبقًا، الرجاء اختيار اسم مختلف.");
+				}
+
+				user.UserName = dto.UserName;
+			}
+
 			if (dto.UserName == null)
 			{
 
@@ -83,17 +102,27 @@ namespace GraduationProject_Infrastructure.Repositories
 				user.UserName = dto.UserName; // يمكن أن تكون null
 
 			}
-			if (dto.Gender.HasValue)
-			{
-				user.Gender = dto.Gender.Value;
-			}
+			//if (dto.Gender.HasValue)
+			//{
+			//	user.Gender = dto.Gender.Value;
+			//}
 			user.GithubLink = dto.GithubLink; // يمكن أن تكون null
 			user.LinkedInLink = dto.LinkedInLink; // يمكن أن تكون null
 
-			if (user.University != null)
+			//if (dto.UniversityNameById != null)
+			//{
+			var role = ExtractClaims.ExtractRoles(token);
+			if (role[0] == "SuperAdmin")
 			{
-				user.University.Name = dto.UniversityName; // يمكن أن تكون null
+				user.UniversityId = user.UniversityId;
 			}
+			else
+			{
+
+			user.UniversityId = dto.UniversityNameById;
+			}
+
+
 
 			//if (user.PersonalExperience != null)
 			//{
@@ -107,7 +136,7 @@ namespace GraduationProject_Infrastructure.Repositories
 				{
 					FileHelper.DeleteFile(user.Cv, "Cvs");
 				}
-				string newCvFileName = FileHelper.UplodeFile(dto.Cv, "Cvs");
+				string newCvFileName =  FileHelper.UplodeFile(dto.Cv, "Cvs");
 				user.Cv = newCvFileName;
 			}
 			else if (!string.IsNullOrEmpty(dto.OldCvUrl))

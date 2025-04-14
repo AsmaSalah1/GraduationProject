@@ -1,4 +1,6 @@
-﻿using GraduationProject_Core.Dtos.Post;
+﻿using GraduationProject_Core.Dtos.Comment;
+using GraduationProject_Core.Dtos.Likes;
+using GraduationProject_Core.Dtos.Post;
 using GraduationProject_Core.Helper;
 using GraduationProject_Core.Interfaces;
 using GraduationProject_Core.Models;
@@ -7,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Xml;
 
 namespace GraduationProject_API.Controllers
 {
@@ -48,7 +51,7 @@ namespace GraduationProject_API.Controllers
 			var result = await unitOfWork.iPostRepositry.AddPost(userId.Value, dto,token);
 			if (result == "Post added successfully.")
 			{
-				return Ok("Post added successfully");
+				return Created();
 			}
 			return BadRequest(result);
 		}
@@ -59,24 +62,33 @@ namespace GraduationProject_API.Controllers
 			string baseUrl = $"{Request.Scheme}://{Request.Host}";
 			
 			var posts=await unitOfWork.iPostRepositry.GetPostDtos(pageIndex, PageSize,type);
+			var allPost = posts;
 			foreach (var item in posts.Posts)
 			{
 		
 				string relativePath1 = item.ProfileImage.Replace(env.WebRootPath, "").Replace("\\", "/");
 				item.ProfileImage = $"{baseUrl}{relativePath1}";
-
-				//ImageUrl = $"{baseUrl}/Images/{item.ImageName}"
-				// تحويل مسار الصورة إلى URL كامل
-				//    string relativePath = item.ImageName.Replace(env.WebRootPath, "").Replace("\\", "/");
 				if (item.PostImage != null)
-					item.PostImage = $"{baseUrl}/Images/{item.PostImage}";
-			}
+				{
+					var r = item.PostImage.Replace(env.WebRootPath, "").Replace("\\", "/");
+					item.PostImage = $"{baseUrl}{r} ";
+				}
+				var comments = await unitOfWork.iCommentRepositry.GetCommentsByPostId(item.PostId);
+				item.Comments = comments ?? new List<GetCommentDto>();
 
-			if (posts != null)
-			{
-				return Ok(posts);
+				// جلب الإعجابات مع التحقق من null
+				var likes = await unitOfWork.iLikeRepository.GetLikesByPostId(item.PostId);
+				item.Likes = likes ?? new List<GetLikesDto>();
 			}
-			return BadRequest(posts);
+			if (posts == null)
+			{
+				return BadRequest(posts);
+			}
+			
+		
+				return Ok(posts);
+			
+			
 		}
 
 
@@ -89,7 +101,6 @@ namespace GraduationProject_API.Controllers
 	)
 		{
 			string baseUrl = $"{Request.Scheme}://{Request.Host}";
-
 			var posts = await unitOfWork.iPostRepositry.GetPostByUniversityName(universityId,pageIndex, PageSize, Post.PostType.Local);
 			foreach (var item in posts.Posts)
 			{
@@ -100,14 +111,20 @@ namespace GraduationProject_API.Controllers
 				//ImageUrl = $"{baseUrl}/Images/{item.ImageName}"
 				// تحويل مسار الصورة إلى URL كامل
 				//    string relativePath = item.ImageName.Replace(env.WebRootPath, "").Replace("\\", "/");
-				if(item.PostImage != null) 
-				item.PostImage = $"{baseUrl}/Images/{item.PostImage}";
+				if (item.PostImage != null)
+				{
+					var r = item.PostImage.Replace(env.WebRootPath, "").Replace("\\", "/");
+					item.PostImage = $"{baseUrl}{r} ";
+					//$"{baseUrl}/{item.PostImage}";
+				Console.WriteLine($"{baseUrl}{r} ");
+				}
 			}
 
 			if (posts != null)
 			{
 				return Ok(posts);
 			}
+
 			return BadRequest(posts);
 		}
 		
@@ -119,24 +136,29 @@ namespace GraduationProject_API.Controllers
 			{
 				return BadRequest(ModelState);
 			}
-			var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+			//var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-			if (string.IsNullOrEmpty(token))
-			{
-				return Unauthorized("Token is missing");
-			}
+			//if (string.IsNullOrEmpty(token))
+			//{
+			//	return Unauthorized("Token is missing");
+			//}
 
-			var userId = ExtractClaims.ExtractUserId(token);
-			if (!userId.HasValue)
-			{
-				return Unauthorized("Invalid user token");
-			}
+			//var userId = ExtractClaims.ExtractUserId(token);
+			//if (!userId.HasValue)
+			//{
+			//	return Unauthorized("Invalid user token");
+			//}
 
 			var result = await unitOfWork.iPostRepositry.GetPostLink(postId);
 
 			if (result == null)
 				return NotFound("Post not found.");
+			string baseUrl = $"{Request.Scheme}://{Request.Host}";
 
+			var r = result.PostImage.Replace(env.WebRootPath, "").Replace("\\", "/");
+			result.PostImage = $"{baseUrl}{r} ";
+			var p= result.ProfileImage.Replace(env.WebRootPath, "").Replace("\\", "/");
+			result.ProfileImage= $"{baseUrl}{p} ";
 			return Ok(result);
 		}
 	

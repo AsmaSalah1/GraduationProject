@@ -4,9 +4,12 @@ using GraduationProject_Core.Interfaces;
 using GraduationProject_Core.Models;
 using GraduationProject_Infrastructure.Data;
 using GraduationProject_Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace GraduationProject_API
 {
@@ -32,6 +35,25 @@ namespace GraduationProject_API
 
             }).AddEntityFrameworkStores<ApplicationDbContext>()
               .AddDefaultTokenProviders().AddUserManager<UserManager<User>>();
+			////////////////
+			builder.Services.AddAuthentication(options =>
+			{
+				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			})
+.AddJwtBearer(options =>
+{
+	options.TokenValidationParameters = new TokenValidationParameters
+	{
+		ValidateIssuer = false,
+		ValidateAudience = false,
+		ValidateLifetime = true,
+		ValidateIssuerSigningKey = true,
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("pAPZO5orCxHY4udbFldWxwJZMqJApfnN"))
+	};
+});
+
+			//////////
 			builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
 			{
 				options.TokenLifespan = TimeSpan.FromHours(3); // صلاحية 3 ساعات

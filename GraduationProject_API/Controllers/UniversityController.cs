@@ -124,7 +124,7 @@ namespace GraduationProject_API.Controllers
                 return NotFound(new { Message = "University not found" });
             }
         }
-        /*
+		/*
                 [HttpGet("GetUniversityDetails/{universityId}")]
                 public async Task<IActionResult> GetUniversityDetails(int universityId)
                 {
@@ -185,77 +185,71 @@ namespace GraduationProject_API.Controllers
 
                 */
 
-        [HttpGet("GetUniversityDetails/{universityId}")]
-        public async Task<IActionResult> GetUniversityDetails(int universityId)
-        {
-            // جلب تفاصيل الجامعة باستخدام الـ universityId
-            var university = await unitOfWork.iUniversityRepositry.GetUniversityByIdAsync(universityId);
+		[HttpGet("GetUniversityDetails/{universityId}")]
+		public async Task<IActionResult> GetUniversityDetails(int universityId)
+		{
+			// جلب تفاصيل الجامعة
+			var university = await unitOfWork.iUniversityRepositry.GetUniversityByIdAsync(universityId);
 
-            if (university == null)
-            {
-                return NotFound(new { Message = "University not found" });
-            }
+			if (university == null)
+			{
+				return NotFound(new { Message = "University not found" });
+			}
 
-            // جلب الصور الخاصة بالجامعة
-            string baseUrl = $"{Request.Scheme}://{Request.Host}";
-            var images = await unitOfWork.iUniversityImagesRepository.GetImagesByUniversityIdAsync(universityId);
-            var imageUrls = images.Select(img => $"{baseUrl}/Images/{img.ImageName}").ToList();
+			string baseUrl = $"{Request.Scheme}://{Request.Host}";
 
-            // مسار الشعار
-            var logoUrl = university.Logo != null ? $"{baseUrl}/Images/{university.Logo}" : null;
+			// جلب الصور الخاصة بالجامعة
+			var images = await unitOfWork.iUniversityImagesRepository.GetImagesByUniversityIdAsync(universityId);
+			var imageUrls = images?.Select(img => $"{baseUrl}/Images/{img.ImageName}").ToList() ?? new List<string>();
 
-            // جلب الـ subadmins للجامعة
-            var subAdmins = await unitOfWork.userProfileRepositry.GetSubAdminsByUniversityIdAsync(universityId);
+			// مسار الشعار
+			var logoUrl = university.Logo != null ? $"{baseUrl}/Images/{university.Logo}" : null;
 
-            // جلب آخر بوست من الـ subadmins
-            var latestPost = await unitOfWork.iPostRepositry.GetLatestPostBySubAdmin(subAdmins.ToList());
+			// جلب الـ subadmins للجامعة
+			var subAdmins = await unitOfWork.userProfileRepositry.GetSubAdminsByUniversityIdAsync(universityId);
 
-            if (latestPost == null)
-            {
-                return NotFound(new { Message = "No posts found for the SubAdmins of this university." });
-            }
+			// جلب آخر بوست من الـ subadmins
+			var latestPost = subAdmins != null ? await unitOfWork.iPostRepositry.GetLatestPostBySubAdmin(subAdmins.ToList()) : null;
 
-            // جلب آخر مسابقة للجامعة
-            var competition = await unitOfWork.iCompetitionRepository.GetLastCompetitionByUniversityIdAsync(universityId);
+			// جلب آخر مسابقة للجامعة
+			var competition = await unitOfWork.iCompetitionRepository.GetLastCompetitionByUniversityIdAsync(universityId);
 
-            // إعداد الاستجابة
-            var universityDetails = new
-            {university.UniversityId,
-                university.Name,
-                LogoUrl = logoUrl,  // استخدام مسار الشعار الكامل
-                university.Description,
-                UniversityImages = imageUrls,
-                university.Gmail,
-                university.Location,
-                university.PhoneNumber,
-                SubAdmins = subAdmins.Select(sa => new
-                {
-                    sa.UserName,
-                    sa.Email,
-                    sa.Description,
-                    ImageUrl = $"{baseUrl}/Images/{sa.Image}" // مسار الصورة
-                }), // عرض البيانات الأساسية للـ SubAdmins
-                LatestPost = new
-                {
-                    latestPost.Title,
-                    latestPost.Description,
-                    PostImageUrl = latestPost.PostImage != null ? $"{baseUrl}/Images/{latestPost.PostImage}" : null
-                },
-                LastCompetition = competition != null ? new
-                {
-                    competition.Name,
-                    // بناء مسار صورة المسابقة بشكل مشابه لبقية الصور
-                    CompetitionImageUrl = competition.Image != null ? $"{baseUrl}/Images/{competition.Image}" : null,
-                    competition.CompetitionId,
-                    competition.Description,
-                    // إضافة رابط "Show Details" للمسابقة
-                  //  ShowDetailsUrl = $"{baseUrl}/GetCompetitionDetails/{competition.CompetitionId}" // الرابط للتوجه إلى صفحة التفاصيل
-                } : null // إذا كانت هناك مسابقة، قم بإضافتها
-            };
-
-            return Ok(universityDetails);
-        }
+			// إعداد الاستجابة
+			var universityDetails = new
+			{
+				university.UniversityId,
+				university.Name,
+				LogoUrl = logoUrl,
+				university.Description,
+				UniversityImages = imageUrls,
+				university.Gmail,
+				university.Location,
+				university.PhoneNumber,
+				SubAdmins = subAdmins?.Select(sa => new
+				{
+					sa.UserName,
+					sa.Email,
+					sa.Description,
+					ImageUrl = sa.Image != null ? $"{baseUrl}/Images/{sa.Image}" : null
+				}),
+				LatestPost = latestPost != null ? new
+				{
+					latestPost.Title,
+					latestPost.Description,
+					PostImageUrl = latestPost.PostImage != null ? $"{baseUrl}/Images/{latestPost.PostImage}" : null
+				} : null,
+				LastCompetition = competition != null ? new
+				{
+					competition.CompetitionId,
+					competition.Name,
+					CompetitionImageUrl = competition.Image != null ? $"{baseUrl}/Images/{competition.Image}" : null,
+					competition.Description,
 
 
-    }
+				} : null
+			};
+
+			return Ok(universityDetails);
+		}
+	}
 }

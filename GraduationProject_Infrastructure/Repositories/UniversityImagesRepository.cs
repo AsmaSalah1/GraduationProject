@@ -37,7 +37,7 @@ namespace GraduationProject_Infrastructure.Repositories
                 var universityImage = new UniversityImages
                 {
                     UniversityId = universityId,
-                    ImageName = imageName
+                    ImageName =imageName
                 };
 
                 await dbContext.UniversityImages.AddAsync(universityImage);

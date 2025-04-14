@@ -41,7 +41,8 @@ namespace GraduationProject_API.Controllers
 			}
 			return Ok(personalExperiance);
 		}
-		//[Authorize]
+
+		[Authorize(Roles = "User")]
 		[HttpPost("Create-your-Personal-Experience")]
 		public async Task<IActionResult> CreatePersonalExperience(AddPersonalExperianceDtos dto)
 		{
@@ -68,7 +69,8 @@ namespace GraduationProject_API.Controllers
            }
           return BadRequest(result);
 		}
-		//[Authorize]
+		
+		[Authorize(Roles = "User")]
 		[HttpPut("Update-your-Personal-Experience/{personalExperienceId}")]
 		public async Task<IActionResult> UpdatePersonalExperiance(int personalExperienceId ,UpdatePersonalExperianceDtos dto)
 		{
@@ -95,7 +97,8 @@ namespace GraduationProject_API.Controllers
 			}
 			return BadRequest(result);
 		}
-	//	[Authorize]
+
+		[Authorize(Roles = "User")]
 		[HttpDelete("Delete-Experience/{personalExperienceId}")]
 		public async Task<IActionResult> DeletePersonalExperience(int personalExperienceId)
 		{
@@ -130,7 +133,8 @@ namespace GraduationProject_API.Controllers
 		    ? Ok(result)
 		    : BadRequest(result);
 		}
-
+		
+		[Authorize(Roles = "Admin")]
 		[HttpGet("Get-UnReviewed-Personal-Experience")]
 		public async Task<IActionResult> GetUnReviewedPersonalExperience(int PageIndex = 1, int PageSize = 5)
 		{
@@ -150,6 +154,7 @@ namespace GraduationProject_API.Controllers
 			return Ok(personalExperiance);
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpPut("Accept-Personal-Experiences-By-Admin/{personalExperienceId}")]
 		public async Task<IActionResult> AcceptPersonalExperienceByAdmin(int personalExperienceId)
 		{
@@ -181,7 +186,7 @@ namespace GraduationProject_API.Controllers
 			: BadRequest(result);
 		}
 
-
+		[Authorize(Roles = "Admin")]
 		[HttpDelete("Delete-Personal-Experience-By-Admin/{personalExperienceId}")]
 		public async Task<IActionResult> DeletePersonalExperienceByAdmin(int personalExperienceId)
 		{
@@ -212,7 +217,7 @@ namespace GraduationProject_API.Controllers
 			: BadRequest(result);
 		}
 
-
+		[Authorize(Roles = "Admin")]
 		[HttpGet("Get-UnReviewed-Personal-Experience-To-Reviewed")]
 		public async Task<IActionResult> Get_UnReviewed_Personal_Experience()
 		{

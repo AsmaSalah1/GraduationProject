@@ -102,7 +102,7 @@ namespace GraduationProject_Infrastructure.Repositories
 			// تحويل النتائج إلى DTO يعرض كل التفاصيل المطلوبة
 			return teamCompetitions.Select(tc => new TeamsDetailsDto
 			{
-				Id=tc.TeamId,
+				Id = tc.TeamId,
 				//TeamId = tc.TeamId, // إضافة الـ TeamId
 				TeamName = tc.Team.TeamName,
 				Ranking = tc.Ranking, // إضافة الـ Ranking
@@ -240,9 +240,9 @@ namespace GraduationProject_Infrastructure.Repositories
 		public async Task<IEnumerable<TeamsDetailsDto>> GetTeamsByParticipantNameAsync(string participantName)
 		{
 			var teams = await dbContext.Teams
-//.Where(t => EF.Functions.Like(t.TeamName.ToLower(), teamName.ToLower() + "%")) // التأكد من عدم حساسية حالة الأحرف
+			   //.Where(t => EF.Functions.Like(t.TeamName.ToLower(), teamName.ToLower() + "%")) // التأكد من عدم حساسية حالة الأحرف
 
-               .Where(t => t.TeamsParticipant.Any(tp => tp.Participant.ParticipantName.ToLower().StartsWith(participantName.ToLower())))
+			   .Where(t => t.TeamsParticipant.Any(tp => tp.Participant.ParticipantName.ToLower().StartsWith(participantName.ToLower())))
 				.Include(t => t.TeamsParticipant) // ربط المشاركين
 				.ThenInclude(tp => tp.Participant)
 				.Include(t => t.TeamsCompetitions) // ربط الفرق بالمسابقات للحصول على الرانك
@@ -278,7 +278,7 @@ namespace GraduationProject_Infrastructure.Repositories
 		public async Task<IEnumerable<TeamsDetailsDto>> GetTeamsByTeamNameAsync(string teamName)
 		{
 			var teams = await dbContext.Teams
-		//.Where(t => EF.Functions.Like(t.TeamName.ToLower(), teamName.ToLower() + "%")) // التأكد من عدم حساسية حالة الأحرف
+				//.Where(t => EF.Functions.Like(t.TeamName.ToLower(), teamName.ToLower() + "%")) // التأكد من عدم حساسية حالة الأحرف
 				.Where(t => t.TeamName.Contains(teamName)) // البحث عن الفرق التي تحتوي على اسم الفريق المدخل
 				.Include(t => t.TeamsParticipant) // ربط المشاركين
 				.ThenInclude(tp => tp.Participant)
@@ -299,6 +299,238 @@ namespace GraduationProject_Infrastructure.Repositories
 				Ranking = t.TeamsCompetitions.FirstOrDefault()?.Ranking ?? 0 // إرجاع أول ترتيب موجود أو صفر إذا لم يكن موجود
 			}).ToList();
 		}
+
+		public async Task<string> AddTeamAsmaa(CreateTeamDto dto, int competitionId, int userId)
+		{
+			// تحقق إذا كان عدد المشاركين غير صحيح
+			if (dto.Participants == null || dto.Participants.Count < 1 || dto.Participants.Count > 3)
+				return "number of Participants not allowed"; // عدد المشاركين غير صحيح
+
+			// تحقق من وجود الفريق باستخدام اسم الفريق واسم الجامعة والمدرب
+			var existingTeam = await dbContext.Teams
+				.FirstOrDefaultAsync(t => t.TeamName == dto.TeamName && t.UniversityName == dto.UniversityName && t.Coach == dto.Coach);
+
+			// إذا كان الفريق موجودًا، نربطه بالمشاركين
+			if (existingTeam != null)
+			{
+				var team = existingTeam;
+
+				foreach (var participantDto in dto.Participants)
+				{
+					// تحقق إذا كان المشارك موجودًا في قاعدة البيانات
+					var existingParticipant = await dbContext.Participants
+						.FirstOrDefaultAsync(p => p.ParticipantName == participantDto.ParticipantName);
+
+					if (existingParticipant == null)
+					{
+						// إذا لم يكن المشارك موجودًا، نضيفه جديدًا
+						var participant = new Participant
+						{
+							ParticipantName = participantDto.ParticipantName
+						};
+						await dbContext.Participants.AddAsync(participant);
+						await dbContext.SaveChangesAsync(); // حفظ المشارك الجديد
+
+						// ربط المشارك بالفريق إذا لم يكن الرابط موجودًا بالفعل
+						if (!await dbContext.TeamsParticipants
+							.AnyAsync(tp => tp.TeamId == team.TeamId && tp.ParticipantId == participant.ParticipantId))
+						{
+							dbContext.TeamsParticipants.Add(new TeamParticipant
+							{
+								TeamId = team.TeamId,
+								ParticipantId = participant.ParticipantId,
+								Year = dto.Year
+							});
+						}
+					}
+					else
+					{
+						// إذا كان المشارك موجودًا، نربطه مباشرة بالفريق إذا لم يكن الرابط موجودًا بالفعل
+						if (!await dbContext.TeamsParticipants
+							.AnyAsync(tp => tp.TeamId == team.TeamId && tp.ParticipantId == existingParticipant.ParticipantId))
+						{
+							dbContext.TeamsParticipants.Add(new TeamParticipant
+							{
+								TeamId = team.TeamId,
+								ParticipantId = existingParticipant.ParticipantId,
+								Year = dto.Year
+							});
+						}
+					}
+				}
+
+				await dbContext.SaveChangesAsync(); // حفظ التعديلات
+				return "Team and Participants linked successfully";
+			}
+			else
+			{
+				// إذا لم يكن الفريق موجودًا، نضيفه أولًا
+				var team = new Team
+				{
+					TeamName = dto.TeamName,
+					UniversityName = dto.UniversityName,
+					Coach = dto.Coach,
+					TeamsParticipant = new List<TeamParticipant>()
+				};
+
+				// إضافة الفريق
+				await dbContext.Teams.AddAsync(team);
+				await dbContext.SaveChangesAsync(); // حفظ الفريق الجديد
+
+				// إضافة المشاركين وربطهم بالفريق
+				foreach (var participantDto in dto.Participants)
+				{
+					var existingParticipant = await dbContext.Participants
+						.FirstOrDefaultAsync(p => p.ParticipantName == participantDto.ParticipantName);
+
+					if (existingParticipant == null)
+					{
+						// إذا لم يكن المشارك موجودًا، نضيفه جديدًا
+						var participant = new Participant
+						{
+							ParticipantName = participantDto.ParticipantName
+						};
+						await dbContext.Participants.AddAsync(participant);
+						await dbContext.SaveChangesAsync(); // حفظ المشارك الجديد
+
+						// ربط المشارك بالفريق
+						team.TeamsParticipant.Add(new TeamParticipant
+						{
+							TeamId = team.TeamId,
+							ParticipantId = participant.ParticipantId,
+							Year = dto.Year
+						});
+					}
+					else
+					{
+						// إذا كان المشارك موجودًا، نربطه مباشرة بالفريق
+						team.TeamsParticipant.Add(new TeamParticipant
+						{
+							TeamId = team.TeamId,
+							ParticipantId = existingParticipant.ParticipantId,
+							Year = dto.Year
+						});
+					}
+				}
+
+				await dbContext.SaveChangesAsync(); // حفظ التعديلات
+				return "Team and Participants added successfully";
+			}
+		}
+
+		//public async Task<string> AddTeamAsmaa(CreateTeamDto dto, int competitionId, int userId)
+		//{
+		//	// تحقق من وجود الفريق باستخدام اسم الفريق
+		//	var existingTeam = await dbContext.Teams
+		//		.FirstOrDefaultAsync(t => t.TeamName == dto.TeamName && t.UniversityName == dto.UniversityName && t.Coach == dto.Coach);
+
+		//	// إذا كان الفريق موجودًا، لا تضيفه بل فقط ربطه بالمشاركين
+		//	if (existingTeam != null)
+		//	{
+		//		var team = existingTeam;
+
+		//		// تحقق إذا كان عدد المشاركين غير صحيح
+		//		if (dto.Participants.Count < 1 || dto.Participants.Count > 3 || dto.Participants == null)
+		//			return "number of Participants not allowed"; // عدد المشاركين غير صحيح
+
+		//		foreach (var participantDto in dto.Participants)
+		//		{
+		//			// تحقق إذا كان المشارك موجودًا في قاعدة البيانات
+		//			var existingParticipant = await dbContext.Participants
+		//				.FirstOrDefaultAsync(p => p.ParticipantName == participantDto.ParticipantName);
+
+		//			if (existingParticipant == null)
+		//			{
+		//				// إذا لم يكن المشارك موجودًا، نضيفه جديدًا
+		//				var participant = new Participant
+		//				{
+		//					ParticipantName = participantDto.ParticipantName
+		//				};
+		//				await dbContext.Participants.AddAsync(participant);
+		//				await dbContext.SaveChangesAsync(); // حفظ المشارك الجديد
+
+		//				// ربط المشارك بالفريق
+		//				dbContext.TeamsParticipants.Add(new TeamParticipant
+		//				{
+		//					TeamId = team.TeamId,
+		//					ParticipantId = participant.ParticipantId,
+		//					Year = dto.Year
+		//				});
+		//			}
+		//			else
+		//			{
+		//				// إذا كان المشارك موجودًا، نربطه مباشرة بالفريق
+		//				dbContext.TeamsParticipants.Add(new TeamParticipant
+		//				{
+		//					TeamId = team.TeamId,
+		//					ParticipantId = existingParticipant.ParticipantId,
+		//					Year = dto.Year
+		//				});
+		//			}
+		//		}
+
+		//		await dbContext.SaveChangesAsync(); // حفظ التعديلات
+		//		return "Team and Participants linked successfully";
+		//	}
+		//	else
+		//	{
+		//		// إذا لم يكن الفريق موجودًا، نضيفه أولًا
+		//		var team = new Team
+		//		{
+		//			TeamName = dto.TeamName,
+		//			UniversityName = dto.UniversityName,
+		//			Coach = dto.Coach,
+		//			TeamsParticipant = new List<TeamParticipant>()
+		//		};
+
+		//		// تحقق إذا كان عدد المشاركين غير صحيح
+		//		if (dto.Participants.Count < 1 || dto.Participants.Count > 3 || dto.Participants == null)
+		//			return "number of Participants not allowed"; // عدد المشاركين غير صحيح
+
+		//		// إضافة الفريق
+		//		await dbContext.Teams.AddAsync(team);
+		//		await dbContext.SaveChangesAsync(); // حفظ الفريق الجديد
+
+		//		// إضافة المشاركين وربطهم بالفريق
+		//		foreach (var participantDto in dto.Participants)
+		//		{
+		//			var existingParticipant = await dbContext.Participants
+		//				.FirstOrDefaultAsync(p => p.ParticipantName == participantDto.ParticipantName);
+
+		//			if (existingParticipant == null)
+		//			{
+		//				// إذا لم يكن المشارك موجودًا، نضيفه جديدًا
+		//				var participant = new Participant
+		//				{
+		//					ParticipantName = participantDto.ParticipantName
+		//				};
+		//				await dbContext.Participants.AddAsync(participant);
+		//				await dbContext.SaveChangesAsync(); // حفظ المشارك الجديد
+
+		//				// ربط المشارك بالفريق
+		//				team.TeamsParticipant.Add(new TeamParticipant
+		//				{
+		//					TeamId = team.TeamId,
+		//					ParticipantId = participant.ParticipantId,
+		//					Year = dto.Year
+		//				});
+		//			}
+		//			else
+		//			{
+		//				// إذا كان المشارك موجودًا، نربطه مباشرة بالفريق
+		//				team.TeamsParticipant.Add(new TeamParticipant
+		//				{
+		//					TeamId = team.TeamId,
+		//					ParticipantId = existingParticipant.ParticipantId,
+		//					Year = dto.Year
+		//				});
+		//			}
+		//		}
+
+		//		await dbContext.SaveChangesAsync(); // حفظ التعديلات
+		//		return "Team and Participants added successfully";
+		//	}
+		//}
 
 	}
 }

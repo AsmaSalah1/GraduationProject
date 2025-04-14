@@ -255,5 +255,41 @@ namespace GraduationProject_API.Controllers
 			return Ok(teams);
 		}
 
+
+
+
+		[HttpPost("Add-Team-Asmaa/{competitionId}")]
+		public async Task<IActionResult> AddTeamAsmaa(int competitionId, [FromBody] CreateTeamDto dto)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+			if (string.IsNullOrEmpty(token))
+			{
+				return Unauthorized("Token is missing");
+			}
+
+			var userId = ExtractClaims.ExtractUserId(token);
+			if (!userId.HasValue)
+			{
+				return Unauthorized("Invalid user token");
+			}
+
+			// هنا استقبلنا الـ competitionId كـ parameter في الـ URL
+			// الـ competitionId سيأتي مع الـ URL، لذا لا تحتاج لإضافته في body
+
+			var result = await unitOfWork.teamRepository.AddTeamAsmaa(dto, competitionId, userId.Value);  // تمرير الـ competitionId هنا
+			if (result== "Team and Participants added successfully" || result== "Team and Participants linked successfully")
+			{
+				return Ok(new { Message = "Team added successfully" });
+			}
+
+			return BadRequest("Error adding team");
+		}
+
+
 	}
 }

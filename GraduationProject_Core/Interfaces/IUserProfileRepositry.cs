@@ -12,7 +12,7 @@ namespace GraduationProject_Core.Interfaces
 	public interface IUserProfileRepositry
 	{
 		Task<ViewProfileDtos> GetUserProfileAsync(int id);
-		Task<bool> UpdateUserProfileAsync(int id, UpdateProfileDtos updateDto);
+		Task<bool> UpdateUserProfileAsync(int id, UpdateProfileDtos updateDto, string token);
 		Task<List<GetUserByNameDto>> GetUsersByNameAsync(string userName);
 		Task<IEnumerable<User>> GetSubAdminsByUniversityIdAsync(int universityId);
 
